@@ -1,1 +1,1 @@
-Back-end for the project
+RESTful API that connects to a database(MongoDB?)
