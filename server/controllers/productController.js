@@ -1,25 +1,22 @@
-const getAllProducts = (req, res) => {
-  console.log('Yes');
-};
+const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
 
-const getProduct = (req, res) => {
-  console.log('Not yet implemented');
-};
+exports.getAllProducts = catchAsync(async (req, res, next) => {
+  return next(new AppError('Not yet implemented', 404));
+});
 
-const createProduct = (req, res) => {
-  console.log('Not yet implemented');
-};
+exports.getProduct = catchAsync(async (req, res, next) => {
+  return next(new AppError('Not yet implemented', 404));
+});
 
-const updateProduct = (req, res) => {
-  console.log('Not yet implemented');
-};
+exports.createProduct = catchAsync(async (req, res, next) => {
+  return next(new AppError('Not yet implemented', 404));
+});
 
-const deleteProduct = (req, res) => {
-  console.log('Not yet implemented');
-};
+exports.updateProduct = catchAsync(async (req, res, next) => {
+  return next(new AppError('Not yet implemented', 404));
+});
 
-exports.getAllProducts = getAllProducts;
-exports.getProduct = getProduct;
-exports.createProduct = createProduct;
-exports.updateProduct = updateProduct;
-exports.deleteProduct = deleteProduct;
+exports.deleteProduct = catchAsync(async (req, res, next) => {
+  return next(new AppError('Not yet implemented', 404));
+});

@@ -1,29 +1,22 @@
-const getAllUsers = (req, res) => {
-  console.log('Not yet implemented');
-  res.status(400).json({
-    status: 'fail',
-    message: 'Not yet implemented',
-  });
-};
+const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/appError');
 
-const getUser = (req, res) => {
-  console.log('Not yet implemented');
-};
+exports.getAllUsers = catchAsync(async (req, res, next) => {
+  return next(new AppError('Not yet implemented', 404));
+});
 
-const createUser = (req, res) => {
-  console.log('Not yet implemented');
-};
+exports.getUser = catchAsync(async (req, res, next) => {
+  return next(new AppError('Not yet implemented', 404));
+});
 
-const updateUser = (req, res) => {
-  console.log('Not yet implemented');
-};
+exports.createUser = catchAsync(async (req, res, next) => {
+  return next(new AppError('Not yet implemented', 404));
+});
 
-const deleteUser = (req, res) => {
-  console.log('Not yet implemented');
-};
+exports.updateUser = catchAsync(async (req, res, next) => {
+  return next(new AppError('Not yet implemented', 404));
+});
 
-exports.getAllUsers = getAllUsers;
-exports.getUser = getUser;
-exports.createUser = createUser;
-exports.updateUser = updateUser;
-exports.deleteUser = deleteUser;
+exports.deleteUser = catchAsync(async (req, res, next) => {
+  return next(new AppError('Not yet implemented', 404));
+});
