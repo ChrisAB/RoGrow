@@ -1,0 +1,21 @@
+.navigation-tabs{
+    /*background-color: aquamarine;*/
+    font-family: "Roboto";
+    font-weight: bold;
+    color: darkslategrey;
+}
+
+.tile-info{
+    color: #699ff0;
+    font-family: "Roboto";
+    font-weight: bold;
+    
+}
+
+.blue-shape-bg{
+    background-color:  #cbe4ff;
+}
+
+.display-3{font-size:3rem;font-weight:400;line-height:1}
+.text-gray-800{color:#384c74!important}
+.font-weight-lighter{font-weight:lighter!important}
