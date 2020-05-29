@@ -1,4 +1,6 @@
 const rp = require('request-promise');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const LoginUser = require('../models/loginUserModel');
@@ -18,15 +20,20 @@ async function getUserFromDatabase(userID) {
   return User(userDatabaseResponse);
 }
 
+async function putUserInDatabase(userToBePutIn) {}
+
 exports.loginUser = catchAsync(async (req, res, next) => {
-  const data = req.body;
-  const userLoginRequest = LoginUser(data.data);
+  const { id, password } = req.body;
+  if (!id || !password) next(new AppError('No email or password defined'), 400);
+  const userLoginRequest = LoginUser(id, password);
   const userFromDatabase = await getUserFromDatabase(userLoginRequest.id);
   if (userFromDatabase instanceof AppError) next(userFromDatabase);
 });
 
 exports.registerUser = catchAsync(async (req, res, next) => {
   const userToBeRegistered = RegisterUser(req.body.data);
+  userToBeRegistered.password = await bcrypt.hash(userToBeRegistered.password);
+  const newUser = await putUserInDatabase(userToBeRegistered);
 
   res.status(201).json({
     status: 'success',
