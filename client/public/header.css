@@ -11,9 +11,29 @@
     font-weight: bold;
     
 }
-
+.profile-img-card {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 10px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
 .blue-shape-bg{
     background-color:  #cbe4ff;
+}
+
+.footer-bg{
+    background-color:#0c3563;
+    color: rgb(226, 226, 226);
+}
+.footer-bg:hover{
+    color: rgb(192, 192, 192);
+}
+.sign-bg{
+    background-color: #2a4e96;
+    color: #ffffff;
 }
 
 .display-3{font-size:3rem;font-weight:400;line-height:1}

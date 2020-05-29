@@ -6,7 +6,7 @@ import { ReactSVG } from 'react-svg'
 function Menu() {
   return (
     <div>
-        <ul className="navbar  navbar-expand-lg pr-6 pl-6 font-size-sm navbar-light">
+        <ul className="navbar navbar-expand-lg pr-6 pl-6 font-size-sm navbar-light">
            <a className="navbar-brand" href = '/'>
                <img src="../assets/logo.svg" width='50%'  alt="Rogrow"/>
            </a>

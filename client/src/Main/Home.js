@@ -55,7 +55,45 @@ function Home() {
     </div>
     
     </section>
-
+    <section className="py-8 py-md-10">
+      <div className="container">
+        <div className="row pt-5 pb-5">
+          <div className="col-12 col-md-4 text-center">
+            <div className="icon mb-3">
+              <img src="../assets/database.svg" width="50"/>  
+            </div>
+            <h4 className="text-gray-800">
+            Database
+            </h4>
+            <p className="text-muted mb-6 mb-md-0 p-3">                
+                Provides a RESTful API to connect Backend to database. Takes JSON requests from backend and stores/retrieves them to/from database       
+            </p>
+          </div>
+          <div className="col-12 col-md-4 text-center">
+            <div className="icon mb-3">
+              <img src="../assets/frontend.svg" width="50"/>  
+            </div>
+            <h4 className="text-gray-800">
+            Frontend
+            </h4>
+            <p className="text-muted mb-6 mb-md-0 p-3"> 
+              Sends and Receives data from backend. Used for displaying information and collecting data.    
+            </p>
+          </div>
+          <div className="col-12 col-md-4 text-center">
+            <div className="icon mb-3">
+              <img src="../assets/backend.svg" width="50"/>  
+            </div>
+            <h5 className="text-gray-800">
+              Backend
+            </h5>
+            <p className="text-muted mb-6 mb-md-0 p-3">                
+              Connect database and frontend. Does all the computing, data validation, authentication etc.          
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
   );
 }
