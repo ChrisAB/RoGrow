@@ -6,7 +6,7 @@ import { ReactSVG } from 'react-svg'
 function Menu() {
   return (
     <div>
-        <ul className="navbar navbar-expand-lg pr-6 pl-6 font-size-sm navbar-light">
+        <ul className="navbar navbar-expand-lg pr-6 pl-6 mb-0 font-size-sm navbar-light">
            <a className="navbar-brand" href = '/'>
                <img src="../assets/logo.svg" width='50%'  alt="Rogrow"/>
            </a>
@@ -24,7 +24,7 @@ function Menu() {
                          <Link className="nav-link pl-5" to="/signin">Signin</Link>
                     </li>
                     <li className="nav-item">
-                         <Link className="nav-link pl-5" to="/signup">Signup</Link>
+                         <Link className="nav-link pl-5" to="/register">Register</Link>
                     </li>
                 </ul>
            </div>

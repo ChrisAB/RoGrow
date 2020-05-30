@@ -24,6 +24,20 @@
     background-color:  #cbe4ff;
 }
 
+.yellow-bg{
+    background-color: #f7c87c;
+}
+.blue-bg{
+    background-color: #699ff0 ;
+    color: #ffffff;
+}
+
+.yellow-text{
+    color: #f3b95b;
+    font-family: "Roboto";
+    font-weight: bold;
+}
+
 .footer-bg{
     background-color:#0c3563;
     color: rgb(226, 226, 226);
@@ -36,6 +50,9 @@
     color: #ffffff;
 }
 
+.font-weight-normal{
+    font-weight: 200;
+}
 .display-3{font-size:3rem;font-weight:400;line-height:1}
 .text-gray-800{color:#384c74!important}
 .font-weight-lighter{font-weight:lighter!important}
