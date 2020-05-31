@@ -8,11 +8,11 @@ const RegisterUser = require('../models/registerUserModel');
 const userController = require('./userController');
 
 exports.loginUser = catchAsync(async (req, res, next) => {
-  const { id, password } = req.body;
-  if (!id || !password)
+  const { email, password } = req.body;
+  if (!email || !password)
     return next(new AppError('No email or password defined'), 400);
-  const userLoginRequest = LoginUser(id, password);
-  const userFromDatabase = await userController.getUser(userLoginRequest.id);
+  const userLoginRequest = LoginUser(email, password);
+  const userFromDatabase = await userController.getUser(userLoginRequest.email);
 
   if (
     !userFromDatabase ||
@@ -21,7 +21,7 @@ exports.loginUser = catchAsync(async (req, res, next) => {
     return next(new AppError('Incorrect id or password!'), 401);
 
   const token = await jwt.sign(
-    { id: userFromDatabase.id },
+    { id: userFromDatabase._id },
     process.env.JWT_SECRET,
     {
       expiresIn: process.env.JWT_EXPIRES_IN,

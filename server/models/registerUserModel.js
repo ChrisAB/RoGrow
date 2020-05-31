@@ -24,7 +24,15 @@ class RegisterUser {
   }
 
   verifyPassword() {
+    if (this.password !== this.confirmPassword) return false;
+    this.confirmPassword = undefined;
     return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(this.password);
+  }
+
+  verifyEmail() {
+    return /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i.test(
+      this.email
+    );
   }
 
   async verify() {
