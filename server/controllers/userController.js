@@ -109,3 +109,8 @@ exports.updateUser = catchAsync(async (req, res, next) => {
 exports.deleteUser = catchAsync(async (req, res, next) => {
   return next(new AppError('Not yet implemented', 404));
 });
+
+exports.loginUser = catchAsync(async (req, res, next) => {
+  console.log('Here');
+  res.end('haha');
+});

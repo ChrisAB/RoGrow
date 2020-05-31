@@ -1,20 +1,30 @@
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
+const rp = require('request-promise');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const LoginUser = require('../models/loginUserModel');
 const userController = require('./userController');
 
 exports.loginUser = catchAsync(async (req, res, next) => {
+  console.log('What');
   const { email, password } = req.body;
   if (!email || !password)
     return next(new AppError('No email or password defined'), 400);
-  const userLoginRequest = LoginUser(email, password);
-  const userFromDatabase = await userController.getUser(userLoginRequest.email);
-
+  const userLoginRequest = await new LoginUser(email, password);
+  const options = {
+    method: 'GET',
+    uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/user/${email}`,
+    qs: {
+      email: email,
+    },
+    json: true,
+  };
+  const userFromDatabase = await rp(options);
+  console.log(userFromDatabase);
   if (
     !userFromDatabase ||
-    !(await userFromDatabase.correctPassword(userLoginRequest.password))
+    !(await userLoginRequest.correctPassword(userFromDatabase.Password))
   )
     return next(new AppError('Incorrect id or password!'), 400);
 
@@ -33,7 +43,7 @@ exports.loginUser = catchAsync(async (req, res, next) => {
   };
   if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
   res.cookie('jwt', token, cookieOptions);
-  userFromDatabase.password = undefined;
+  userFromDatabase.Password = undefined;
 
   res.status(200).json({
     status: 'success',

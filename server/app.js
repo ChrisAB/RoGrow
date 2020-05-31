@@ -12,6 +12,7 @@ const userRoutes = require('./routes/productRoutes');
 const productRoutes = require('./routes/productRoutes');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
+const authController = require('./controllers/authController');
 
 const app = express();
 const corsOptions = {
@@ -48,11 +49,14 @@ app.use(hpp());
 app.use(express.static(`${__dirname}/public`));
 
 app.use((req, res, next) => {
+  console.log(req.url);
+  console.log(req.body);
   next();
 });
 
 // ROUTES
 app.use('/api/v1/user', userRoutes);
+app.use('/api/v1/user/login', authController.loginUser);
 app.use('/api/v1/product', productRoutes);
 
 // 404 Error not found handler

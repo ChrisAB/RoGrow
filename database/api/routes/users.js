@@ -35,6 +35,8 @@ router.put("/", (req, res, next) => {
 //
 
 router.get("/:userId", (req, res, next) => {
+  if (!req.query.userId) return next();
+
   const id = req.params.userId;
 
   User.findById(id)
@@ -46,6 +48,21 @@ router.get("/:userId", (req, res, next) => {
       } else {
         res.status(404).json({ message: "No valid entry found for ID" });
       }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: err });
+    });
+});
+
+router.get("/:email", (req, res, next) => {
+  const email = req.query.email;
+  console.log(email);
+  User.findOne({ Email: email })
+    .exec()
+    .then((doc) => {
+      console.log(doc);
+      res.status(200).json(doc);
     })
     .catch((err) => {
       console.log(err);
