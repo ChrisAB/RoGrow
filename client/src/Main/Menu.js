@@ -30,7 +30,7 @@ function Menu({history}) {
                          <Link className="nav-link pl-5" style={isActive(history,'/about')} to="/about">About</Link>
                     </li>
                     <li className="nav-item ">
-                         <Link className="nav-link pl-5" style={isActive(history,'/signin')} to="/signin">Signin</Link>
+                         <Link className="nav-link pl-5" style={isActive(history,'/signin')} to="/signin">Sign in</Link>
                     </li>
                     <li className="nav-item">
                          <Link className="nav-link pl-5" style={isActive(history,'/register')} to="/register">Register</Link>
