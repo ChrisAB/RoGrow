@@ -1,0 +1,5 @@
+{
+    "env": {
+        "DB_PW": "shop-admin"
+    }
+}
