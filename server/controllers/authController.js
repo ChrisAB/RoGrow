@@ -1,6 +1,7 @@
 const { promisify } = require('util');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const rp = require('request-promise');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const LoginUser = require('../models/loginUserModel');
@@ -47,26 +48,38 @@ exports.loginUser = catchAsync(async (req, res, next) => {
 });
 
 exports.registerUser = catchAsync(async (req, res, next) => {
-  //console.log(req.body);
-  const userToBeRegistered = RegisterUser(req.body);
-  console.log('registering');
+  next(new AppError('Not implemented', 500));
+  console.log('Started registering....');
+  const userToBeRegistered = RegisterUser(...req.body);
   const verify = userToBeRegistered.verify();
   if (verify !== true) next(new AppError(verify, 400));
 
   userToBeRegistered.password = await bcrypt.hash(userToBeRegistered.password);
-
-  const newUser = await userController.createUser(userToBeRegistered);
-  console.log('Done waiting for user');
+  const options = {
+    method: 'PUT',
+    uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/user`,
+    body: {
+      FirstName: userToBeRegistered.firstName,
+      LastName: userToBeRegistered.lastName,
+      Password: userToBeRegistered.password,
+      Email: userToBeRegistered.email,
+      Country: userToBeRegistered.country,
+      Region: userToBeRegistered.region,
+      Address: userToBeRegistered.address,
+      SellerOrClientFlag: 'buyer',
+    },
+    json: true,
+  };
+  const newUser = await rp(options);
+  console.log('Finished waiting');
   if (newUser === undefined)
     return next(new AppError('Could not register'), 500);
-  console.log('Done registering');
   res.status(201).json({
     status: 'success',
     data: {
       userID: newUser.dbID,
     },
   });
-  res.end();
 });
 
 exports.protect = catchAsync(async (req, res, next) => {

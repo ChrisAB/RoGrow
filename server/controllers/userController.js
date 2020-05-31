@@ -1,6 +1,8 @@
+const bcrypt = require('bcryptjs');
 const rp = require('request-promise');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+const RegisterUser = require('../models/registerUserModel');
 
 exports.getAllUsers = catchAsync(async (req, res, next) => {
   const options = {
@@ -32,27 +34,59 @@ exports.getUser = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.createUser = catchAsync(async (res, req, next) => {
-  //console.log(body);
+exports.createUser = catchAsync(async (req, res, next) => {
+  const {
+    firstName,
+    lastName,
+    password,
+    confirmPassword,
+    email,
+    country,
+    region,
+    address,
+  } = req.body;
+  const userToBeRegistered = await new RegisterUser(
+    firstName,
+    lastName,
+    password,
+    confirmPassword,
+    email,
+    country,
+    region,
+    address
+  );
+  console.log('What');
+  const verify = await userToBeRegistered.verify();
+  if (verify !== true) next(new AppError(verify, 400));
+  userToBeRegistered.password = await bcrypt.hash(
+    userToBeRegistered.password,
+    12
+  );
   const options = {
     method: 'PUT',
     uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/user`,
     body: {
-      FirstName: 'lala',
-      LastName: 'lala',
-      Password: 'cypherme',
-      Email: 'cdcd',
-      Country: 'popo',
-      Region: 'ddd',
-      Address: 'dadad',
-      SellerOrClientFlag: 'seller',
+      FirstName: userToBeRegistered.firstName,
+      LastName: userToBeRegistered.lastName,
+      Password: userToBeRegistered.password,
+      Email: userToBeRegistered.email,
+      County: userToBeRegistered.city,
+      Region: userToBeRegistered.region,
+      Address: userToBeRegistered.address,
+      SellerOrClientFlag: 'buyer',
     },
     json: true,
   };
-  const user = await rp(options);
-  console.log('Done waiting for user');
-  if (user === undefined) return next(new AppError('Could not create user'));
-  next(user);
+  const newUser = await rp(options);
+  if (newUser === undefined)
+    return next(new AppError('Could not register'), 500);
+  console.log('Did I finish?');
+  res.status(201).json({
+    status: 'success',
+    data: {
+      userID: newUser.dbID,
+    },
+  });
 });
 
 exports.updateUser = catchAsync(async (req, res, next) => {
