@@ -40,6 +40,13 @@ app.use(hpp());
 // Serving static files
 app.use(express.static(`${__dirname}/public`));
 
+app.use((req, res, next) => {
+  console.log(req.body);
+  console.log(req.url);
+  console.log(req.method);
+  next();
+});
+
 // ROUTES
 app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/product', productRoutes);

@@ -1,58 +1,62 @@
-import React, {useState} from 'react';
-import {API} from '../config'
+import React, { useState } from "react";
+import { API } from "../config";
 
-
-const  BuyerRegister = () => {
+const BuyerRegister = () => {
   const [values, setValues] = useState({
-    firstName:'',
-    lastName:'',
-    password:'',
-    confirmPassword:'',
-    email:'',
-    country:'',
-    region:'',
-    address:'',
-    error:'',
-    success: false
+    firstName: "",
+    lastName: "",
+    password: "",
+    confirmPassword: "",
+    email: "",
+    country: "",
+    region: "",
+    address: "",
+    error: "",
+    success: false,
   });
 
-  const { firstName, lastName,
-          password, confirmPassword,
-          email,
-          country,
-          region,
-          address,
-          error,
-          success } = values
+  const {
+    firstName,
+    lastName,
+    password,
+    confirmPassword,
+    email,
+    country,
+    region,
+    address,
+    error,
+    success,
+  } = values;
 
-  const handleChanege = name => event => {
-    setValues({...values, error: false, [name]: event.target.value});
+  const handleChanege = (name) => (event) => {
+    setValues({ ...values, error: false, [name]: event.target.value });
   };
 
   const registerBuyer = (user) => {
+
       console.log((user));
-      fetch(`${API}/v1/user`, {
-        method: "POST",
-        headers: {
-          Accept: 'application/json',
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(user)
-      })
-      .then(response => {
+    fetch(`${API}/v1/user/register`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((response) => {
         return response.json();
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
-      })
+      });
   };
 
   const clickRegister = (event) => {
     event.preventDefault();
     registerBuyer({
-      firstName: firstName, 
+      firstName: firstName,
       lastName: lastName,
-      password: password, 
+      password: password,
       confirmPassword: confirmPassword,
       email: email,
       country: country,
@@ -169,5 +173,6 @@ const  BuyerRegister = () => {
    </div>
  );
 }
+
 
 export default BuyerRegister;
