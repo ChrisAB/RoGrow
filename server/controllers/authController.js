@@ -16,7 +16,7 @@ exports.loginUser = catchAsync(async (req, res, next) => {
     !userFromDatabase ||
     !(await userFromDatabase.correctPassword(userLoginRequest.password))
   )
-    return next(new AppError('Incorrect id or password!'), 401);
+    return next(new AppError('Incorrect id or password!'), 400);
 
   const token = await jwt.sign(
     { id: userFromDatabase._id },
