@@ -8,7 +8,6 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
     json: true,
   };
   const users = await rp(options);
-  console.log(users);
   if (users.users === undefined)
     return next(new AppError('Database failed to respond'), 500);
   res.status(200).json({
@@ -33,8 +32,27 @@ exports.getUser = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.createUser = catchAsync(async (req, res, next) => {
-  return next(new AppError('Not yet implemented', 404));
+exports.createUser = catchAsync(async (res, req, next) => {
+  //console.log(body);
+  const options = {
+    method: 'PUT',
+    uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/user`,
+    body: {
+      FirstName: 'lala',
+      LastName: 'lala',
+      Password: 'cypherme',
+      Email: 'cdcd',
+      Country: 'popo',
+      Region: 'ddd',
+      Address: 'dadad',
+      SellerOrClientFlag: 'seller',
+    },
+    json: true,
+  };
+  const user = await rp(options);
+  console.log('Done waiting for user');
+  if (user === undefined) return next(new AppError('Could not create user'));
+  next(user);
 });
 
 exports.updateUser = catchAsync(async (req, res, next) => {

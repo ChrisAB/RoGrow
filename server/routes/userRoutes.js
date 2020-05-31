@@ -4,12 +4,10 @@ const authController = require('../controllers/authController');
 
 const router = express.Router();
 
-router.post('/register', authController.registerUser);
-
 router
   .route('/')
   .get(userController.getAllUsers)
-  .post(userController.createUser);
+  .post(authController.registerUser);
 
 router
   .route('/:id')

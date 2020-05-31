@@ -10,9 +10,9 @@ router.put("/", (req, res, next) => {
     FirstName: req.body.FirstName,
     LastName: req.body.LastName,
     Password: req.body.Password,
-    Salt: req.body.Salt,
+    Salt: req.body.Country,
     Email: req.body.Email,
-    Location: req.body.Location,
+    Location: req.body.Address,
     SellerOrClientFlag: req.body.SellerOrClientFlag,
   });
 

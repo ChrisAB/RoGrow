@@ -47,22 +47,26 @@ exports.loginUser = catchAsync(async (req, res, next) => {
 });
 
 exports.registerUser = catchAsync(async (req, res, next) => {
-  const userToBeRegistered = RegisterUser(req.body.data);
-
+  //console.log(req.body);
+  const userToBeRegistered = RegisterUser(req.body);
+  console.log('registering');
   const verify = userToBeRegistered.verify();
   if (verify !== true) next(new AppError(verify, 400));
 
   userToBeRegistered.password = await bcrypt.hash(userToBeRegistered.password);
 
   const newUser = await userController.createUser(userToBeRegistered);
-  if (!newUser) return next(new AppError('Could not register'), 500);
-
+  console.log('Done waiting for user');
+  if (newUser === undefined)
+    return next(new AppError('Could not register'), 500);
+  console.log('Done registering');
   res.status(201).json({
     status: 'success',
     data: {
       userID: newUser.dbID,
     },
   });
+  res.end();
 });
 
 exports.protect = catchAsync(async (req, res, next) => {

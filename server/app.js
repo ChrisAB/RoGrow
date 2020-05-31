@@ -14,6 +14,10 @@ const globalErrorHandler = require('./controllers/errorController');
 
 const app = express();
 
+app.use((res, req, next) => {
+  next();
+});
+
 // Set security HTTP headers
 app.use(helmet());
 
