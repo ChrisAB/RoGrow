@@ -1,6 +1,7 @@
 import React from 'react';
 import Footerpage from './Footerpage'
 import Menu from './Menu'
+import {API} from '../config'
 
 function Home() {
   return (
@@ -36,7 +37,7 @@ function Home() {
             <div className="text-center text-lg-left text-sm-left mb-5 mt-sm-8 pt-sm-4 pt-4">
                 <h5 className="text-gray-800 large pl-sm-1">
                   Project Details
-                </h5>
+                </h5> 
 
             </div>
             <p className="mt-4 mb-0 pl-sm-1 text-center text-lg-left text-sm-left ">

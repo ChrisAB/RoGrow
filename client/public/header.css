@@ -27,6 +27,10 @@
 .yellow-bg{
     background-color: #f7c87c;
 }
+
+.yellow-bg-text:hover{
+ color:#ffffff;
+}
 .blue-bg{
     background-color: #699ff0 ;
     color: #ffffff;
@@ -37,6 +41,7 @@
     font-family: "Roboto";
     font-weight: bold;
 }
+
 
 .footer-bg{
     background-color:#0c3563;
@@ -53,6 +58,22 @@
 .font-weight-normal{
     font-weight: 200;
 }
+
+.white-link{
+    color: #ffffff;
+}
+.white-link:hover{
+    color: #b7d1f3;
+}
+
+.black-link{
+    color: black;
+}
+.black-link:hover{
+    color: #3a3834;
+    opacity: 50%;
+}
+
 .display-3{font-size:3rem;font-weight:400;line-height:1}
 .text-gray-800{color:#384c74!important}
 .font-weight-lighter{font-weight:lighter!important}

@@ -2,8 +2,17 @@ import React from 'react';
 import {Link, withRouter} from 'react-router-dom'
 import { ReactSVG } from 'react-svg'
 
+const isActive = (history, path) =>{
+     if(history.location.pathname === path){
+          return {
+               color: '#699ff0'
+          }
+     }
+};
 
-function Menu() {
+
+
+function Menu({history}) {
   return (
     <div>
         <ul className="navbar navbar-expand-lg pr-6 pl-6 mb-0 font-size-sm navbar-light">
@@ -18,13 +27,13 @@ function Menu() {
            <div className="navbar-collapse collapse navigation-tabs" id="navbarSupportedContent">
                 <ul className="navbar-nav ml-auto pr-3">
                     <li className="nav-item ">
-                         <Link className="nav-link pl-5" to="/about">About</Link>
+                         <Link className="nav-link pl-5" style={isActive(history,'/about')} to="/about">About</Link>
                     </li>
                     <li className="nav-item ">
-                         <Link className="nav-link pl-5" to="/signin">Signin</Link>
+                         <Link className="nav-link pl-5" style={isActive(history,'/signin')} to="/signin">Signin</Link>
                     </li>
                     <li className="nav-item">
-                         <Link className="nav-link pl-5" to="/register">Register</Link>
+                         <Link className="nav-link pl-5" style={isActive(history,'/register')} to="/register">Register</Link>
                     </li>
                 </ul>
            </div>
