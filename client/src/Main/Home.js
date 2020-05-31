@@ -1,6 +1,5 @@
 import React from 'react';
 import Footerpage from './Footerpage'
-import Menu from './Menu'
 import {API} from '../config'
 
 function Home() {
