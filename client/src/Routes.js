@@ -5,6 +5,9 @@ import Signup from './Signin/Signup'
 import Signin from './Signin/Signin'
 import Home from './Main/Home'
 import Menu from './Main/Menu'
+import BuyerRegister from './Signin/BuyerRegister'
+import SellerRegister from './Signin/SellerRegister'
+
 import Footerpage from './Main/Footerpage'
  
 const Routes = () => {
@@ -15,6 +18,9 @@ const Routes = () => {
                 <Route path="/about" exact component={Home} />
                 <Route path="/signin" exact component={Signin} />
                 <Route path="/register" exact component={Signup} />
+                <Route path="/buyerRegister" exact component={BuyerRegister} />
+                <Route path="/sellerRegister" exact component={SellerRegister} />
+
             </Switch>
         </BrowserRouter>
     )
