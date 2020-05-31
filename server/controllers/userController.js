@@ -7,8 +7,9 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
     uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/user`,
     json: true,
   };
-  const users = await rp.options(options);
-  if (users.data.status === 'fail')
+  const users = await rp(options);
+  console.log(users);
+  if (users.users === undefined)
     return next(new AppError('Database failed to respond'), 500);
   res.status(200).json({
     status: 'success',
@@ -24,9 +25,8 @@ exports.getUser = catchAsync(async (req, res, next) => {
     },
     json: true,
   };
-  const user = await rp.options(options);
-  if (user.data.status === 'fail')
-    return next(new AppError('No such user', 404));
+  const user = await rp(options);
+  if (user === undefined) return next(new AppError('No such user', 404));
   res.status(200).son({
     status: 'success',
     data: user,
