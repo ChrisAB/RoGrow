@@ -9,6 +9,7 @@ import BuyerRegister from './Signin/BuyerRegister'
 import SellerRegister from './Signin/SellerRegister'
 
 import Footerpage from './Main/Footerpage'
+import MainPage from './Main/MainPage'
  
 const Routes = () => {
     return (
@@ -16,6 +17,7 @@ const Routes = () => {
         <Menu/>
             <Switch>
                 <Route path="/about" exact component={Home} />
+                <Route path="/" exact component={MainPage} />
                 <Route path="/signin" exact component={Signin} />
                 <Route path="/register" exact component={Signup} />
                 <Route path="/buyerRegister" exact component={BuyerRegister} />

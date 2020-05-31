@@ -41,7 +41,7 @@ function Signup() {
                             </h6>
                             <div className="mt-3 mb-1">
                                 <button className="btn btn-lg btn-block yellow-bg">
-                                    <Link className="nav-link black-link" to="/sellerRegister">Register</Link>
+                                    <Link className="nav-link" style={ {color:'#000000'}} to="/sellerRegister">Register</Link>
                                 </button>
                             </div>
                         </div>

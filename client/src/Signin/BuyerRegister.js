@@ -30,8 +30,8 @@ const  BuyerRegister = () => {
   };
 
   const registerBuyer = (user) => {
-      //console.log((firstName + " " + lastName));
-      fetch(`${API}/v1/user/register`, {
+      console.log((user));
+      fetch(`${API}/v1/user`, {
         method: "POST",
         headers: {
           Accept: 'application/json',
@@ -58,7 +58,28 @@ const  BuyerRegister = () => {
       country: country,
       region: region,
       address: address
-    });
+    })
+    .then (data => {
+      if (data){
+      if(data.status == 'error'){
+        setValues({...values, error: data.message, success: false});
+      } else {
+        setValues({
+          ...values,
+          firstName:'',
+          lastName:'',
+          password:'',
+          confirmPassword:'',
+          email:'',
+          country:'',
+          region:'',
+          address:'',
+          error:'',
+          success: true
+        });
+      }
+    }
+    })
   }
 
   const RegisterForm = () =>
@@ -72,17 +93,17 @@ const  BuyerRegister = () => {
                         <div className="col-md-6">
                           <div className="m-1">
                               <label className=" pl-sm-1 pt-1">First Name</label>
-                              <input onChange={handleChanege('firstName')} type="text" id="inputFirstName" class="form-control" placeholder="First Name" required autofocus/>
+                              <input onChange={handleChanege('firstName')} type="text" id="inputFirstName" class="form-control" placeholder="First Name" value={firstName} required autofocus/>
                           </div>
                           <div className="m-1">
                               <label className="text-gray-800 large pl-sm-1 pt-1">Password</label>
-                              <input onChange={handleChanege('password')} type="password" id="inputPassword" class="form-control" placeholder="Password" required></input>
+                              <input onChange={handleChanege('password')} type="password" id="inputPassword" class="form-control" placeholder="Password" value={password} required></input>
                           </div>
                       </div>
                         <div className="col-md-6">
                           <div className="m-1">
                               <label className="text-gray-800 large pl-sm-1 pt-1">Last Name</label>
-                              <input onChange={handleChanege('lastName')} type="text" id="inputLastName" class="form-control" placeholder="Last Name" required autofocus/>
+                              <input onChange={handleChanege('lastName')} type="text" id="inputLastName" class="form-control" placeholder="Last Name" value={lastName} required autofocus/>
                           </div>
                           <div className="m-1">
                               <label className="text-gray-800 large pl-sm-1 pt-1">Confirm Password</label>
@@ -93,25 +114,25 @@ const  BuyerRegister = () => {
                          <div>
                            <div className="m-1">
                                      <label className="text-gray-800 large pl-sm-1 pt-1">Email address</label>
-                                     <input onChange={handleChanege('email')} type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus/>
+                                     <input onChange={handleChanege('email')} type="email" id="inputEmail" class="form-control" placeholder="Email address" value={email} required autofocus/>
                            </div>
                          </div>
                          <div>
                            <div className="m-1">
                                      <label className="text-gray-800 large pl-sm-1 pt-1">Country</label>
-                                     <input onChange={handleChanege('country')} type="text" id="inputCountry" class="form-control" placeholder="Country" required autofocus/>
+                                     <input onChange={handleChanege('country')} type="text" id="inputCountry" class="form-control" placeholder="Country" value={country} required autofocus/>
                            </div>
                          </div>
                          <div>
                            <div className="m-1">
                                      <label className="text-gray-800 large pl-sm-1 pt-1">Region</label>
-                                     <input onChange={handleChanege('region')} type="text" id="inputRegion" class="form-control" placeholder="Region" required autofocus/>
+                                     <input onChange={handleChanege('region')} type="text" id="inputRegion" class="form-control" placeholder="Region" value={region} required autofocus/>
                            </div>
                          </div>
                          <div>
                            <div className="m-1">
                                      <label className="text-gray-800 large pl-sm-1 pt-1">Address</label>
-                                     <input onChange={handleChanege('address')} type="text" id="inputAddress" class="form-control" placeholder="Address" required autofocus/>
+                                     <input onChange={handleChanege('address')} type="text" id="inputAddress" class="form-control" placeholder="Address" value={address} required autofocus/>
                            </div>
                          </div>
                          <div className="pt-2 pb-2 mt-sm-1  mt-xs-1">
@@ -128,10 +149,23 @@ const  BuyerRegister = () => {
        </section>
       );
 
+    const showError = () => (
+      <div className="alert alert-danger" style={{display: error ? '' : 'none'}} >
+        {error}
+      </div>
+    )
+
+    const showSucces = () => (
+      <div className="alert alert-info" style={{display: success ? '' : 'none'}} >
+        Account created. Please signin.
+       </div>
+    )
+
  return (
    <div>
+        {showError}
+        {showSucces}
         {RegisterForm()}
-        {JSON.stringify(values)}
    </div>
  );
 }
