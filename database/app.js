@@ -34,9 +34,9 @@ app.use((req, res, next) => {
 });
 
 // Routes that handle requests
-app.use("/carts", cartRoutes);
-app.use("/products", productRoutes);
-app.use("/users", userRoutes);
+app.use("/cart", cartRoutes);
+app.use("/product", productRoutes);
+app.use("/user", userRoutes);
 
 app.use((req, res, next) => {
   const error = new Error("Not Found");
