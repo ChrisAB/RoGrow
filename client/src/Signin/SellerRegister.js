@@ -32,60 +32,58 @@ const  SellerRegister = () =>
   };
 
   //CHANGE SELLER API ADDRESS
-  const registerSeller = (user) => {
-    console.log((user));
-    fetch(`${API}/v1/user`, {
+  const registerSeller = async (user) => {
+    console.log(user);
+    return await fetch(`${API}/v1/user`, {
       method: "POST",
       headers: {
-        Accept: 'application/json',
-        "Content-Type": "application/json"
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(user)
+      body: JSON.stringify(user),
     })
-    .then(response => {
-      return response.json();
-    })
-    .catch(err => {
-      console.log(err);
-    })
-};
-
-const clickRegister = (event) => {
-  event.preventDefault();
-  registerSeller({
-    firstName: firstName, 
-    lastName: lastName,
-    password: password, 
-    confirmPassword: confirmPassword,
-    email: email,
-    country: country,
-    region: region,
-    address: address,
-    CUI: CUI
-  })
-  .then (data => {
-    if (data){
-    if(data.status == 'error'){
-      setValues({...values, error: data.message, success: false});
-    } else {
-      setValues({
-        ...values,
-        firstName:'',
-        lastName:'',
-        password:'',
-        confirmPassword:'',
-        email:'',
-        country:'',
-        region:'',
-        address:'',
-        CUI: '',
-        error:'',
-        success: true
+      .then((response) => {
+        return response.json();
+      })
+      .catch((err) => {
+        console.log(err);
       });
+  };
+
+  const clickRegister = async (event) => {
+    event.preventDefault();
+    const data = await registerSeller({
+      firstName: firstName,
+      lastName: lastName,
+      password: password,
+      confirmPassword: confirmPassword,
+      email: email,
+      country: country,
+      region: region,
+      address: address,
+      CUI: CUI
+    });
+    if (data) {
+      if (data.status != "succes") {
+        setValues({ ...values, error: data.message, success: false });
+      } else {
+        setValues({
+          ...values,
+          firstName: "",
+          lastName: "",
+          password: "",
+          confirmPassword: "",
+          email: "",
+          country: "",
+          region: "",
+          address: "",
+          CUI: "",
+          error: "",
+          success: true,
+        });
+      }
     }
-  }
-  })
-}
+  };
 
   const RegisterForm = () =>  (
       <section className="position-relative pt-12 pt-md-14 mt-n11">
@@ -97,52 +95,52 @@ const clickRegister = (event) => {
                             <div className="col-md-6">
                               <div className="m-1">
                                   <label className=" pl-sm-1 pt-1">First Name</label>
-                                  <input type="text"  onChange={handleChanege('firstName')} id="inputFirstName" class="form-control" placeholder="First Name" required autofocus/>
+                                  <input type="text"  onChange={handleChanege('firstName')} id="inputFirstName" className="form-control" placeholder="First Name" required autoFocus/>
                               </div>
                               <div className="m-1">
                                   <label className="text-gray-800 large pl-sm-1 pt-1">Password</label>
-                                  <input type="password" onChange={handleChanege('password')} id="inputPassword" class="form-control" placeholder="Password" required></input>
+                                  <input type="password" onChange={handleChanege('password')} id="inputPassword" className="form-control" placeholder="Password" required></input>
                               </div>
                           </div>
                             <div className="col-md-6">
                               <div className="m-1">
                                   <label className="text-gray-800 large pl-sm-1 pt-1">Last Name</label>
-                                  <input type="text" onChange={handleChanege('lastName')} id="inputLastName" class="form-control" placeholder="Last Name" required autofocus/>
+                                  <input type="text" onChange={handleChanege('lastName')} id="inputLastName" className="form-control" placeholder="Last Name" required autoFocus/>
                               </div>
                               <div className="m-1">
                                   <label className="text-gray-800 large pl-sm-1 pt-1">Confirm Password</label>
-                                  <input type="password" onChange={handleChanege('confirmPassword')} id="inputConfirmPassword" class="form-control" placeholder="Password" required></input>
+                                  <input type="password" onChange={handleChanege('confirmPassword')} id="inputConfirmPassword" className="form-control" placeholder="Password" required></input>
                               </div>
                           </div>
                         </div>
                         <div>
                           <div className="m-1">
                                     <label className="text-gray-800 large pl-sm-1 pt-1">Email address</label>
-                                    <input type="email" onChange={handleChanege('email')} id="inputEmail" class="form-control" placeholder="Email address" required autofocus/>
+                                    <input type="email" onChange={handleChanege('email')} id="inputEmail" className="form-control" placeholder="Email address" required autoFocus/>
                           </div>
                         </div>
                         <div>
                           <div className="m-1">
                                     <label className="text-gray-800 large pl-sm-1 pt-1">Country</label>
-                                    <input type="text" onChange={handleChanege('country')} id="inputCountry" class="form-control" placeholder="Country" required autofocus/>
+                                    <input type="text" onChange={handleChanege('country')} id="inputCountry" className="form-control" placeholder="Country" required autoFocus/>
                           </div>
                         </div>
                         <div>
                           <div className="m-1">
                                     <label className="text-gray-800 large pl-sm-1 pt-1">Region</label>
-                                    <input type="text" onChange={handleChanege('region')} id="inputRegion" class="form-control" placeholder="Region" required autofocus/>
+                                    <input type="text" onChange={handleChanege('region')} id="inputRegion" className="form-control" placeholder="Region" required autoFocus/>
                           </div>
                         </div>
                         <div>
                           <div className="m-1">
                                     <label className="text-gray-800 large pl-sm-1 pt-1">Address</label>
-                                    <input type="text" onChange={handleChanege('address')} id="inputAddress" class="form-control" placeholder="Address" required autofocus/>
+                                    <input type="text" onChange={handleChanege('address')} id="inputAddress" className="form-control" placeholder="Address" required autoFocus/>
                           </div>
                         </div>
                         <div>
                           <div className="m-1">
                                     <label className="text-gray-800 large pl-sm-1 pt-1">CUI</label>
-                                    <input type="text" onChange={handleChanege('CUI')} id="inputCUI" class="form-control" placeholder="CUI" required autofocus/>
+                                    <input type="text" onChange={handleChanege('CUI')} id="inputCUI" className="form-control" placeholder="CUI" required autoFocus/>
                           </div>
                         </div>
                         <div className="pt-2 pb-2 mt-sm-1  mt-xs-1">
@@ -172,8 +170,8 @@ const clickRegister = (event) => {
 
  return (
   <div>
-    {showError}
-    {showSucces}
+    {showError()}
+    {showSucces()}
     {RegisterForm()}
   </div>
  );
