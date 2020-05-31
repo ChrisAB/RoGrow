@@ -35,7 +35,7 @@ const BuyerRegister = () => {
   const registerBuyer = (user) => {
 
       console.log((user));
-    fetch(`${API}/v1/user/register`, {
+    fetch(`${API}/v1/user`, {
       method: "POST",
       headers: {
         Accept: "application/json",
