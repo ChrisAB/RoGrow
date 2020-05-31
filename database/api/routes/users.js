@@ -42,7 +42,6 @@ router.get("/:userId", (req, res, next) => {
   User.findById(id)
     .exec()
     .then((doc) => {
-      console.log("From database", doc);
       if (doc) {
         res.status(200).json(doc);
       } else {
@@ -57,11 +56,10 @@ router.get("/:userId", (req, res, next) => {
 
 router.get("/:email", (req, res, next) => {
   const email = req.query.email;
-  console.log(email);
+
   User.findOne({ Email: email })
     .exec()
     .then((doc) => {
-      console.log(doc);
       res.status(200).json(doc);
     })
     .catch((err) => {

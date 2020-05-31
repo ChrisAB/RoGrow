@@ -7,7 +7,6 @@ class LoginUser {
   }
 
   async correctPassword(passwordToCheck) {
-    console.log(this.password, passwordToCheck);
     return await bcrypt.compare(this.password, passwordToCheck);
   }
 
