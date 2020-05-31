@@ -55,7 +55,6 @@ exports.createUser = catchAsync(async (req, res, next) => {
     region,
     address
   );
-  console.log('What');
   const verify = await userToBeRegistered.verify();
   if (verify !== true) next(new AppError(verify, 400));
   userToBeRegistered.password = await bcrypt.hash(
@@ -80,12 +79,8 @@ exports.createUser = catchAsync(async (req, res, next) => {
   const newUser = await rp(options);
   if (newUser === undefined)
     return next(new AppError('Could not register'), 500);
-  console.log('Did I finish?');
   res.status(201).json({
     status: 'success',
-    data: {
-      userID: newUser.dbID,
-    },
   });
 });
 

@@ -48,9 +48,6 @@ app.use(hpp());
 app.use(express.static(`${__dirname}/public`));
 
 app.use((req, res, next) => {
-  console.log(req.body);
-  console.log(req.url);
-  console.log(req.method);
   next();
 });
 
