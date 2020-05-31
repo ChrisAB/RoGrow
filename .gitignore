@@ -4,3 +4,4 @@ server/config.env
 server/.eslintrc.json
 server/.prettierrc
 database/node_modules
+database/config.env
