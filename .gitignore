@@ -3,3 +3,4 @@ server/npm-debug.log
 server/config.env
 server/.eslintrc.json
 server/.prettierrc
+database/node_modules

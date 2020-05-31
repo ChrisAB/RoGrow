@@ -1,9 +1,12 @@
 import React from 'react';
+import Menu from '../Main/Menu'
 
 function Signin() {
     return (
-        <section className="position-relative pt-12 pt-md-14 mt-n11 pb-4 mb-5">
-           <div className="container">
+        <body>
+
+        <section className="position-relative pt-12 pt-md-14 mt-n11 pb-4 mb-5 mt-5">
+           <div className="container mt-5 pt-5 mb-5">
                <div className="row align-items-center text-center text-md-left">
                    <div className="col-12 col-md-6 card card-container pb-2 pt-2 mb-4">
                         <form className="form-signin">
@@ -20,14 +23,14 @@ function Signin() {
                             </div>
                         </form>
                    </div>
-                   <div className="col-12 col-md-6 mt-4">
-                     <img src="../assets/signin.svg" alt="shopping illustration" height="100%" className="img-fluid mw-100 float-right mb-6 mb-md-0 pl-sm-1"/>
+                   <div className="col-12 col-md-6 mt-4 pl-lg-5 pl-xl-5 pl-md-5">
+                     <img src="../assets/signin.svg" alt="shopping illustration" height="100%" className="img-fluid mw-100 float-right mb-6 mb-md-0 pl-sm-1 pl-5"/>
                    </div>
                </div>
            </div>
 
        </section>
-
+       </body>
     );
 }
 

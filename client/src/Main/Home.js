@@ -1,5 +1,6 @@
 import React from 'react';
-
+import Footerpage from './Footerpage'
+import Menu from './Menu'
 
 function Home() {
   return (
@@ -94,6 +95,7 @@ function Home() {
         </div>
       </div>
     </section>
+    <Footerpage/>
   </div>
   );
 }
