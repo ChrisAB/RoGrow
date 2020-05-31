@@ -1,0 +1,36 @@
+version: "3"
+services:
+  rogrow-backend:
+    build:
+      context: ./server
+      dockerfile: ./DOCKERFILE
+    ports:
+      - 25030:25030
+    volumes:
+      - ./server:/usr/src/app
+    networks:
+      - default
+  rogrow-frontend:
+    build:
+      context: ./client
+      dockerfile: ./Dockerfile
+    ports:
+      - 80:3000
+    volumes:
+      - ./client:/usr/src/app
+    networks:
+      - default
+  rogrow-db:
+    build:
+      context: ./database
+      dockerfile: ./DOCKERFILE
+    ports:
+      - 25031:25031
+    volumes:
+      - ./database:/usr/src/app
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge
