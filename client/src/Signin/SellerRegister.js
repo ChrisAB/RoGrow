@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {API} from '../config'
+import {registerSeller} from '../auth/index'
 
 const  SellerRegister = () => 
  {
@@ -31,25 +31,7 @@ const  SellerRegister = () =>
     setValues({...values, error: false, [name]: event.target.value});
   };
 
-  //CHANGE SELLER API ADDRESS
-  const registerSeller = async (user) => {
-    console.log(user);
-    return await fetch(`${API}/v1/user`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
+  
   const clickRegister = async (event) => {
     event.preventDefault();
     const data = await registerSeller({

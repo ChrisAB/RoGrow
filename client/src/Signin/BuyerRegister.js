@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { API } from "../config";
+import { registerBuyer } from "../auth/index";
 
 const BuyerRegister = () => {
   const [values, setValues] = useState({
@@ -30,24 +30,6 @@ const BuyerRegister = () => {
 
   const handleChanege = (name) => (event) => {
     setValues({ ...values, error: false, [name]: event.target.value });
-  };
-
-  const registerBuyer = async (user) => {
-    console.log(user);
-    return await fetch(`${API}/v1/user`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   };
 
   const clickRegister = async (event) => {
@@ -262,8 +244,8 @@ const BuyerRegister = () => {
 
   return (
     <div>
-      {showError}
-      {showSucces}
+      {showError()}
+      {showSucces()}
       {RegisterForm()}
     </div>
   );
