@@ -78,7 +78,7 @@ const  SellerRegister = () =>
                             <div className="col-md-6">
                               <div className="m-1">
                                   <label className=" pl-sm-1 pt-1">First Name</label>
-                                  <input type="text" value={firstName} onChange={handleChanege('firstName')} id="inputFirstName" className="form-control" placeholder="First Name" required autoFocus/>
+                                  <input type="text" value={firstName} onChange={handleChanege('firstName')} id="inputFirstName" className="form-control" placeholder="First Name" required autoFocus />
                               </div>
                               <div className="m-1">
                                   <label className="text-gray-800 large pl-sm-1 pt-1">Password</label>
@@ -88,7 +88,7 @@ const  SellerRegister = () =>
                             <div className="col-md-6">
                               <div className="m-1">
                                   <label className="text-gray-800 large pl-sm-1 pt-1">Last Name</label>
-                                  <input type="text" value={lastName} onChange={handleChanege('lastName')} id="inputLastName" className="form-control" placeholder="Last Name" required autoFocus/>
+                                  <input type="text" value={lastName} onChange={handleChanege('lastName')} id="inputLastName" className="form-control" placeholder="Last Name" required  />
                               </div>
                               <div className="m-1">
                                   <label className="text-gray-800 large pl-sm-1 pt-1">Confirm Password</label>
@@ -99,31 +99,31 @@ const  SellerRegister = () =>
                         <div>
                           <div className="m-1">
                                     <label className="text-gray-800 large pl-sm-1 pt-1">Email address</label>
-                                    <input type="email" value={email} onChange={handleChanege('email')} id="inputEmail" className="form-control" placeholder="Email address" required autoFocus/>
+                                    <input type="email" value={email} onChange={handleChanege('email')} id="inputEmail" className="form-control" placeholder="Email address" required  />
                           </div>
                         </div>
                         <div>
                           <div className="m-1">
                                     <label className="text-gray-800 large pl-sm-1 pt-1">Country</label>
-                                    <input type="text" value={country}  onChange={handleChanege('country')} id="inputCountry" className="form-control" placeholder="Country" required autoFocus/>
+                                    <input type="text" value={country}  onChange={handleChanege('country')} id="inputCountry" className="form-control" placeholder="Country" required  />
                           </div>
                         </div>
                         <div>
                           <div className="m-1">
                                     <label className="text-gray-800 large pl-sm-1 pt-1">Region</label>
-                                    <input type="text" value={region} onChange={handleChanege('region')} id="inputRegion" className="form-control" placeholder="Region" required autoFocus/>
+                                    <input type="text" value={region} onChange={handleChanege('region')} id="inputRegion" className="form-control" placeholder="Region" required  />
                           </div>
                         </div>
                         <div>
                           <div className="m-1">
                                     <label className="text-gray-800 large pl-sm-1 pt-1">Address</label>
-                                    <input type="text" value={address} onChange={handleChanege('address')} id="inputAddress" className="form-control" placeholder="Address" required autoFocus/>
+                                    <input type="text" value={address} onChange={handleChanege('address')} id="inputAddress" className="form-control" placeholder="Address" required  />
                           </div>
                         </div>
                         <div>
                           <div className="m-1">
                                     <label className="text-gray-800 large pl-sm-1 pt-1">CUI</label>
-                                    <input type="text" value={CUI} onChange={handleChanege('CUI')} id="inputCUI" className="form-control" placeholder="CUI" required autoFocus/>
+                                    <input type="text" value={CUI} onChange={handleChanege('CUI')} id="inputCUI" className="form-control" placeholder="CUI" required  />
                           </div>
                         </div>
                         <div className="pt-2 pb-2 mt-sm-1  mt-xs-1">
@@ -132,7 +132,7 @@ const  SellerRegister = () =>
                      </form>
                 </div>
                 <div className="col-12 col-md-6  pl-lg-5 pl-xl-5 pl-md-5">
-                  <img src="../assets/seller.svg" alt="shopping illustration" width="100%" className="img-fluid mw-100 float-right mb-md-0 pl-sm-1 pl-5"/>
+                  <img src="../assets/register/seller.svg" alt="shopping illustration" width="100%" className="img-fluid mw-100 float-right mb-md-0 pl-sm-1 pl-5"/>
                 </div>
             </div>
         </div>

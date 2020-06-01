@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {Redirect} from 'react-router-dom'
-import {login, userSession} from '../auth/index'
+import {login, userSession, isSigned} from '../auth/index'
 
 const Signin = () => {
     const [values, setValues] = useState({
@@ -19,6 +19,7 @@ const Signin = () => {
         redirectToReferrer
       } = values;
     
+        
     const handleChanege = (name) => (event) => {
       setValues({ ...values, error: false, [name]: event.target.value });
     };
@@ -68,7 +69,7 @@ const Signin = () => {
                         </form>
                    </div>
                    <div className="col-12 col-md-6 mt-4 pl-lg-5 pl-xl-5 pl-md-5">
-                     <img src="../assets/signin.svg" alt="shopping illustration" height="100%" className="img-fluid mw-100 float-right mb-6 mb-md-0 pl-sm-1 pl-5"/>
+                     <img src="../assets/login/signin.svg" alt="shopping illustration" height="100%" className="img-fluid mw-100 float-right mb-6 mb-md-0 pl-sm-1 pl-5"/>
                    </div>
                </div>
            </div>
@@ -89,7 +90,7 @@ const Signin = () => {
     )
     const redirectUser = () =>{
         if(redirectToReferrer){
-            return <Redirect to="/" />
+            return <Redirect to="/profile" />
         }
     }
     return (

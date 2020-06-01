@@ -6,7 +6,7 @@ function Home() {
   return (
     <div>
     <section className="position-relative pt-12 pt-md-14 mt-n11">
-      <div className="container">
+      <div className="container pt-5">
         <div className="row align-items-center text-center text-md-left">
           <div className="col-12 col-md-6">
             <img src="../assets/shopping.png" alt="shopping illustration" className="img-fluid mw-100 float-right mb-6 mb-md-0"/>
@@ -48,7 +48,7 @@ function Home() {
             </p>
           </div>
           <div className="col-12 col-md-6">
-            <img src="../assets/people-shopping.png" alt="shopping illustration" className="img-fluid mw-100 float-right mb-6 mb-md-0 pl-sm-1"/>
+            <img src="../assets/home/people-shopping.png" alt="shopping illustration" className="img-fluid mw-100 float-right mb-6 mb-md-0 pl-sm-1"/>
           </div>
 
         </div>
@@ -61,7 +61,7 @@ function Home() {
         <div className="row pt-5 pb-5">
           <div className="col-12 col-md-4 text-center">
             <div className="icon mb-3">
-              <img src="../assets/database.svg" width="50"/>  
+              <img src="../assets/home/database.svg" width="50"/>  
             </div>
             <h4 className="text-gray-800">
             Database
@@ -72,7 +72,7 @@ function Home() {
           </div>
           <div className="col-12 col-md-4 text-center">
             <div className="icon mb-3">
-              <img src="../assets/frontend.svg" width="50"/>  
+              <img src="../assets/home/frontend.svg" width="50"/>  
             </div>
             <h4 className="text-gray-800">
             Frontend
@@ -83,7 +83,7 @@ function Home() {
           </div>
           <div className="col-12 col-md-4 text-center">
             <div className="icon mb-3">
-              <img src="../assets/backend.svg" width="50"/>  
+              <img src="../assets/home/backend.svg" width="50"/>  
             </div>
             <h5 className="text-gray-800">
               Backend
