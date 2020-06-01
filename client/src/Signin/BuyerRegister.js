@@ -211,7 +211,7 @@ const BuyerRegister = () => {
           </div>
           <div className="col-12 col-md-6  pl-lg-5 pl-xl-5 pl-md-5">
             <img
-              src="../assets/buyer.svg"
+              src="../assets/register/buyer.svg"
               alt="shopping illustration"
               width="90%"
               className="img-fluid mw-100 float-right mb-md-0 pl-sm-1 pl-5"

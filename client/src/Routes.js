@@ -26,6 +26,7 @@ const Routes = () => {
                 <PublicRoute path="/buyerRegister" exact component={BuyerRegister} />
                 <PublicRoute path="/sellerRegister" exact component={SellerRegister} />
                 <PrivateRoute path="/profile" exact component={ProfilePage}/>
+                <PrivateRoute path="/profile/:userId" exact component={ProfilePage}/>
             </Switch>
         </BrowserRouter>
     )

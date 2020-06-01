@@ -50,7 +50,7 @@ function Signup() {
                     </div>
                 </section>
             <section className="blue-shape-bg  text-center">
-                <img src="../assets/transit.svg"  width="73%" className="img-fluid mw-100 float-centre mb-6 mb-md-0 pl-sm-1 pl-5"/>
+                <img src="../assets/register/transit.svg"  width="73%" className="img-fluid mw-100 float-centre mb-6 mb-md-0 pl-sm-1 pl-5"/>
             </section>
            
              </div>
