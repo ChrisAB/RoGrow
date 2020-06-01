@@ -8,11 +8,10 @@ import Menu from './Main/Menu'
 import BuyerRegister from './Signin/BuyerRegister'
 import SellerRegister from './Signin/SellerRegister'
 import ProfilePage from './Main/Profile'
-import Footerpage from './Main/Footerpage'
 import MainPage from './Main/MainPage'
 import PrivateRoute from './auth/PrivateRoute'
 import PublicRoute from './auth/PublicRoute'
-
+import EditProfile from './UserPages/EditProfile'
 
 const Routes = () => {
     return (
@@ -26,7 +25,7 @@ const Routes = () => {
                 <PublicRoute path="/buyerRegister" exact component={BuyerRegister} />
                 <PublicRoute path="/sellerRegister" exact component={SellerRegister} />
                 <PrivateRoute path="/profile" exact component={ProfilePage}/>
-                <PrivateRoute path="/profile/:userId" exact component={ProfilePage}/>
+                <PrivateRoute path="/editProfile" exact component={EditProfile}/>
             </Switch>
         </BrowserRouter>
     )

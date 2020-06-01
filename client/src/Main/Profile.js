@@ -1,10 +1,11 @@
 import React,  {useState} from 'react';
 import {readUser, isSigned} from '../auth/index'
+import {Link} from 'react-router-dom'
 
 const ProfilePage = () => {
 
 
-    const {data: {userFromDatabase: {_id, FirstName, LastName, Email, County, Region, Address, SellerOrClientFlag}}} = isSigned();
+    const {data: {userFromDatabase: { FirstName, LastName, Email, County, Region, Address, SellerOrClientFlag}}} = isSigned();
     
     const Cui = ""
 
@@ -85,10 +86,14 @@ const ProfilePage = () => {
                              { !isSeller() && 
                                 <div className="row pt-3">
                                     <div className="pt-2 col-6  pb-2">
-                                        <button className="btn btn-lg btn-block blue-bg text-wrap blue-bg" >Edit Profile</button>
+                                        <button className="btn btn-lg btn-block blue-bg text-wrap blue-bg" >
+                                            <Link className="nav-link p-0 white-link" to="/editProfile">Edit Profile</Link>
+                                        </button>
                                     </div>
                                     <div className="pt-2 col-6  pb-2">
-                                        <button className="btn btn-lg btn-block blue-bg text-wrap">Delete Profile</button>
+                                        <button className="btn btn-lg btn-block blue-bg text-wrap">
+                                            <Link className="nav-link p-0 white-link" to="/">Delete Profile</Link>
+                                        </button>
                                     </div>
                                 </div>
                             }
