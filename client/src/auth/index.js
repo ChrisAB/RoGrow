@@ -54,4 +54,10 @@ export const registerBuyer = async (user) => {
       });
   };
 
+  export const userSession = async (data, next) => {
+      if (typeof window !== 'undefined'){
+            localStorage.setItem('jwt', JSON.stringify(data.token))
+            next();
+        }
+  }
 
