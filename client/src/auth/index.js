@@ -81,5 +81,18 @@ export const registerBuyer = async (user) => {
       }
 
   };
-  
+
+  export const readUser = (userId, token) => {
+      return fetch(`${API}/v1/user/${userId}`,{
+          method: "GET",
+          headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`
+          }
+      }) .then(response => {
+          return response.json();
+      })
+      .catch(err => console.log(err));
+  };
 
