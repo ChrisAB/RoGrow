@@ -6,6 +6,15 @@ const AppError = require('../utils/appError');
 const LoginUser = require('../models/loginUserModel');
 const User = require('../models/userModel');
 
+async function getUser(id) {
+  const options = {
+    uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/user/${id}`,
+    json: true,
+  };
+  const res = await rp(options);
+  return await new User(res);
+}
+
 exports.loginUser = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password)
@@ -22,7 +31,7 @@ exports.loginUser = catchAsync(async (req, res, next) => {
   const userFromDatabase = await rp(options);
   if (
     !userFromDatabase ||
-    !(await userLoginRequest.correctPassword(userFromDatabase.Password))
+    !(await userLoginRequest.correctPassword(userFromDatabase.password))
   )
     return next(new AppError('Incorrect id or password!'), 400);
 
@@ -41,7 +50,7 @@ exports.loginUser = catchAsync(async (req, res, next) => {
   };
   if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
   res.cookie('jwt', token, cookieOptions);
-  userFromDatabase.Password = undefined;
+  userFromDatabase.password = undefined;
 
   res.status(200).json({
     status: 'success',
@@ -51,15 +60,6 @@ exports.loginUser = catchAsync(async (req, res, next) => {
     },
   });
 });
-
-async function getUser(id) {
-  const options = {
-    uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/user/${id}`,
-    json: true,
-  };
-  const res = await rp(options);
-  return await new User(res);
-}
 
 exports.protect = catchAsync(async (req, res, next) => {
   let token;

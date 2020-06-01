@@ -70,7 +70,22 @@ exports.createUser = catchAsync(async (req, res, next) => {
     userToBeRegistered.password,
     12
   );
-  const options = {
+
+  let options = {
+    method: 'GET',
+    uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/user/${email}`,
+    qs: {
+      email: email,
+    },
+    json: true,
+  };
+
+  const isUserAlreadyRegistered = await rp(options);
+
+  if (isUserAlreadyRegistered.status === 'success')
+    return next(new AppError('Email is already in use', 400));
+
+  options = {
     method: 'PUT',
     uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/user`,
     body: {
