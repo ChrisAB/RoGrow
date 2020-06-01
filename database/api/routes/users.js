@@ -7,14 +7,15 @@ const User = require("../models/user");
 router.put("/", (req, res, next) => {
   const user = new User({
     _id: new mongoose.Types.ObjectId(),
-    FirstName: req.body.FirstName,
-    LastName: req.body.LastName,
-    Password: req.body.Password,
-    Email: req.body.Email,
-    County: req.body.County,
-    Region: req.body.Region,
-    Address: req.body.Address,
-    SellerOrClientFlag: req.body.SellerOrClientFlag,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    password: req.body.password,
+    email: req.body.email,
+    county: req.body.county,
+    region: req.body.region,
+    address: req.body.address,
+    role: req.body.role,
+    CUI: req.body.CUI,
   });
 
   user
@@ -97,25 +98,20 @@ router.delete("/:userId", (req, res, next) => {
     .exec()
     .then((result) => {
       res.status(201).json({
-        message: "User deleted successfully!",
-        createdUser: User,
+        status: "success",
+        data: null,
       });
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({ status: "fail", error: err });
     });
 });
 
 router.patch("/:userId", (req, res, next) => {
   const id = req.params.userId;
 
-  const updateOps = {};
-  for (const ops of req.body) {
-    updateOps[ops.propName] = ops.value;
-  }
-
-  User.update({ _id: id }, { $set: updateOps })
+  User.update({ _id: id }, { $set: req.body })
     .exec()
     .then((result) => {
       console.log(result);

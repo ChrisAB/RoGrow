@@ -4,7 +4,7 @@ const rp = require('request-promise');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const LoginUser = require('../models/loginUserModel');
-const userController = require('./userController');
+const User = require('../models/userModel');
 
 exports.loginUser = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
@@ -52,6 +52,15 @@ exports.loginUser = catchAsync(async (req, res, next) => {
   });
 });
 
+async function getUser(id) {
+  const options = {
+    uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/user/${id}`,
+    json: true,
+  };
+  const res = await rp(options);
+  return await new User(res);
+}
+
 exports.protect = catchAsync(async (req, res, next) => {
   let token;
   if (
@@ -60,24 +69,24 @@ exports.protect = catchAsync(async (req, res, next) => {
   ) {
     token = req.headers.authorization.split(' ')[1];
   }
-  if (!token) return next(new AppError('Not logged in!'), 401);
+  if (!token) return next(new AppError('Not logged in!', 401));
+
   const decodedPayload = await promisify(jwt.verify)(
     token,
     process.env.JWT_SECRET
   );
 
-  const freshUser = await userController.getUser(decodedPayload.id);
+  const freshUser = await getUser(decodedPayload.id);
+
   if (!freshUser)
     return next(
-      new AppError('The user belonging to this token no longer exists'),
-      401
+      new AppError('The user belonging to this token no longer exists', 401)
     );
 
   if (freshUser.changedPasswordAfter(decodedPayload.iat))
     return next(
       new AppError('User recently changed password! Please login again', 401)
     );
-
   // GRANT ACCESS TO PROTECTED ROUTE
   req.user = freshUser;
   next();
