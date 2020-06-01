@@ -27,7 +27,7 @@ exports.getUser = catchAsync(async (req, res, next) => {
   };
   const user = await rp(options);
   if (user === null) return next(new AppError('No such user', 404));
-  user.Password = undefined;
+  user.password = undefined;
   res.status(200).json({
     status: 'success',
     data: user,
