@@ -44,8 +44,7 @@ const BuyerRegister = () => {
       region: region,
       address: address,
     });
-    if (data) {
-      if (data.status != "succes") {
+      if (data.status !== "success") {
         setValues({ ...values, error: data.message, success: false });
       } else {
         setValues({
@@ -61,7 +60,6 @@ const BuyerRegister = () => {
           error: "",
           success: true,
         });
-      }
     }
   };
 
@@ -127,6 +125,7 @@ const BuyerRegister = () => {
                       id="inputConfirmPassword"
                       className="form-control"
                       placeholder="Password"
+                      value={confirmPassword}
                       required
                     ></input>
                   </div>

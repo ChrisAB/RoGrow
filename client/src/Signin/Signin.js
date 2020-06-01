@@ -32,7 +32,7 @@ const Signin = () => {
             password: password
         });
         if (data) {
-            if (data.status != "succes") {
+            if (data.status != "success") {
               setValues({ ...values, error: data.message, loading: false });
             } else {
             userSession(data,

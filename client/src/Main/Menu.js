@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link, withRouter} from 'react-router-dom'
+import {signout, isSigned} from '../auth'
 import { ReactSVG } from 'react-svg'
 
 const isActive = (history, path) =>{
@@ -29,12 +30,24 @@ function Menu({history}) {
                     <li className="nav-item ">
                          <Link className="nav-link pl-5" style={isActive(history,'/about')} to="/about">About</Link>
                     </li>
-                    <li className="nav-item ">
-                         <Link className="nav-link pl-5" style={isActive(history,'/signin')} to="/signin">Sign in</Link>
-                    </li>
-                    <li className="nav-item">
-                         <Link className="nav-link pl-5" style={isActive(history,'/register')} to="/register">Register</Link>
-                    </li>
+
+                    {!isSigned() && 
+                    <div>
+                         <li className="nav-item ">
+                              <Link className="nav-link pl-5" style={isActive(history,'/signin')} to="/signin">Sign in</Link>
+                         </li>
+                         <li className="nav-item">
+                              <Link className="nav-link pl-5" style={isActive(history,'/register')} to="/register">Register</Link>
+                         </li>
+                    </div>
+                    }
+                   { isSigned() && 
+                         <li className="nav-item">
+                              <span className="nav-link pl-5" onClick={()=>signout(() => {
+                                   history.push("/");
+                              })} >Sign out</span>
+                         </li>
+                    }
                 </ul>
            </div>
 
