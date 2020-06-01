@@ -20,15 +20,13 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 
 exports.getUser = catchAsync(async (req, res, next) => {
   const options = {
-    uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/user`,
-    qs: {
-      id: req.data.id,
-    },
+    uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/user/${req.params.id}`,
     json: true,
   };
   const user = await rp(options);
-  if (user === undefined) return next(new AppError('No such user', 404));
-  res.status(200).son({
+  if (user === null) return next(new AppError('No such user', 404));
+  user.Password = undefined;
+  res.status(200).json({
     status: 'success',
     data: user,
   });
@@ -111,6 +109,5 @@ exports.deleteUser = catchAsync(async (req, res, next) => {
 });
 
 exports.loginUser = catchAsync(async (req, res, next) => {
-  console.log('Here');
   res.end('haha');
 });

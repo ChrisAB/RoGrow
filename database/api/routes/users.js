@@ -35,7 +35,7 @@ router.put("/", (req, res, next) => {
 //
 
 router.get("/:userId", (req, res, next) => {
-  if (!req.query.userId) return next();
+  if (req.query.email) return next();
 
   const id = req.params.userId;
 
