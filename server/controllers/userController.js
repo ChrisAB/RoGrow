@@ -85,29 +85,19 @@ exports.createUser = catchAsync(async (req, res, next) => {
 exports.updateUser = catchAsync(async (req, res, next) => {
   const options = {
     method: 'PATCH',
-    uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/user`,
-    qs: {
-      userId: req.body.userId,
-    },
+    uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/user/${req.params.id}`,
     body: {
-      FirstName: req.body.firstName,
-      LastName: req.body.lastName,
-      County: req.body.city,
-      Region: req.body.region,
-      Address: req.body.address,
-      SellerOrClientFlag: 'buyer',
+      $set: req.body,
     },
     json: true,
   };
+
   const newUser = await rp(options);
   if (newUser === undefined)
     return next(new AppError('Could not update user info'), 500);
+  res.status(200).json({ status: 'success', data: newUser });
 });
 
 exports.deleteUser = catchAsync(async (req, res, next) => {
   return next(new AppError('Not yet implemented', 404));
-});
-
-exports.loginUser = catchAsync(async (req, res, next) => {
-  res.end('haha');
 });

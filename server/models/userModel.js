@@ -1,10 +1,26 @@
 class User {
-  constructor(dbID, id, password, salt, email) {
-    this.dbID = dbID;
-    this.id = id;
-    this.password = password;
-    this.salt = salt;
+  constructor(
+    _id,
+    firstName,
+    lastName,
+    email,
+    county,
+    region,
+    address,
+    sellerOrClientFlag
+  ) {
+    this._id = _id;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.county = county;
+    this.region = region;
     this.email = email;
+    this.address = address;
+    this.sellerOrClientFlag = sellerOrClientFlag;
+  }
+
+  changedPasswordAfter(date) {
+    return false;
   }
 }
 

@@ -8,7 +8,7 @@ const cors = require('cors');
 
 // eslint-disable-next-line no-unused-vars
 const dotenv = require('dotenv').config({ path: './config.env' });
-const userRoutes = require('./routes/productRoutes');
+const userRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -56,7 +56,7 @@ app.use((req, res, next) => {
 });
 
 // ROUTES
-app.use('/api/v1/user', userRoutes);
+app.use('/api/v1/user/', userRoutes);
 app.use('/api/v1/user/login', authController.loginUser);
 app.use('/api/v1/product', productRoutes);
 

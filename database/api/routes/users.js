@@ -110,12 +110,7 @@ router.delete("/:userId", (req, res, next) => {
 router.patch("/:userId", (req, res, next) => {
   const id = req.params.userId;
 
-  const updateOps = {};
-  for (const ops of req.body) {
-    updateOps[ops.propName] = ops.value;
-  }
-
-  User.update({ _id: id }, { $set: updateOps })
+  User.update({ _id: id }, { $set: req.body })
     .exec()
     .then((result) => {
       console.log(result);
