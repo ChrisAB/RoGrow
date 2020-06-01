@@ -112,7 +112,7 @@ const BuyerRegister = () => {
                       placeholder="Last Name"
                       value={lastName}
                       required
-                      autoFocus
+                       
                     />
                   </div>
                   <div className="m-1">
@@ -144,7 +144,7 @@ const BuyerRegister = () => {
                     placeholder="Email address"
                     value={email}
                     required
-                    autoFocus
+                     
                   />
                 </div>
               </div>
@@ -161,7 +161,7 @@ const BuyerRegister = () => {
                     placeholder="Country"
                     value={country}
                     required
-                    autoFocus
+                     
                   />
                 </div>
               </div>
@@ -178,7 +178,7 @@ const BuyerRegister = () => {
                     placeholder="Region"
                     value={region}
                     required
-                    autoFocus
+                     
                   />
                 </div>
               </div>
@@ -195,7 +195,6 @@ const BuyerRegister = () => {
                     placeholder="Address"
                     value={address}
                     required
-                    autoFocus
                   />
                 </div>
               </div>
