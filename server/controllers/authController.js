@@ -7,7 +7,6 @@ const LoginUser = require('../models/loginUserModel');
 const userController = require('./userController');
 
 exports.loginUser = catchAsync(async (req, res, next) => {
-  console.log('What');
   const { email, password } = req.body;
   if (!email || !password)
     return next(new AppError('No email or password defined'), 400);
@@ -21,7 +20,6 @@ exports.loginUser = catchAsync(async (req, res, next) => {
     json: true,
   };
   const userFromDatabase = await rp(options);
-  console.log(userFromDatabase);
   if (
     !userFromDatabase ||
     !(await userLoginRequest.correctPassword(userFromDatabase.Password))
