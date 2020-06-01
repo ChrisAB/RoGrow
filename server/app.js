@@ -13,6 +13,7 @@ const productRoutes = require('./routes/productRoutes');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const authController = require('./controllers/authController');
+const categories = require('./utils/categories');
 
 const app = express();
 const corsOptions = {
@@ -58,6 +59,10 @@ app.use((req, res, next) => {
 app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/user/login', authController.loginUser);
 app.use('/api/v1/product', productRoutes);
+
+app.get('/api/v1/category', (req, res, next) => {
+  res.status(200).json({ status: 'success', data: categories });
+});
 
 // 404 Error not found handler
 app.all('*', (req, res, next) => {
