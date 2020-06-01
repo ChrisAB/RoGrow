@@ -77,9 +77,9 @@ router.get("/", (req, res, next) => {
         users: docs.map((doc) => {
           return {
             _id: doc._id,
-            FirstName: doc.FirstName,
-            LastName: doc.LastName,
-            Email: doc.Email,
+            firstName: doc.firstName,
+            lastName: doc.lastName,
+            email: doc.email,
           };
         }),
       };
