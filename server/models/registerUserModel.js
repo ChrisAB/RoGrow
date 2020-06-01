@@ -8,6 +8,7 @@ class RegisterUser {
     city,
     region,
     address,
+    role,
     CUI = null
   ) {
     this.firstName = firstName;
@@ -18,9 +19,8 @@ class RegisterUser {
     this.city = city;
     this.region = region;
     this.address = address;
+    this.role = role;
     this.CUI = CUI;
-    if (this.CUI == null) this.role = 'buyer';
-    else this.role = 'seller';
   }
 
   verifyPassword() {

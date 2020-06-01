@@ -1,5 +1,7 @@
 const bcrypt = require('bcryptjs');
 const rp = require('request-promise');
+const { promisify } = require('util');
+const jwt = require('jsonwebtoken');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const RegisterUser = require('../models/registerUserModel');
@@ -43,6 +45,13 @@ exports.createUser = catchAsync(async (req, res, next) => {
     region,
     address,
   } = req.body;
+  let CUI;
+  let role;
+  // eslint-disable-next-line prefer-destructuring
+  if (req.body.CUI) {
+    CUI = req.body.CUI;
+    role = 'seller';
+  } else role = 'buyer';
   const userToBeRegistered = await new RegisterUser(
     firstName,
     lastName,
@@ -51,7 +60,9 @@ exports.createUser = catchAsync(async (req, res, next) => {
     email,
     country,
     region,
-    address
+    address,
+    role,
+    CUI
   );
   const verify = await userToBeRegistered.verify();
   if (verify !== true) next(new AppError(verify, 400));
@@ -63,14 +74,15 @@ exports.createUser = catchAsync(async (req, res, next) => {
     method: 'PUT',
     uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/user`,
     body: {
-      FirstName: userToBeRegistered.firstName,
-      LastName: userToBeRegistered.lastName,
-      Password: userToBeRegistered.password,
-      Email: userToBeRegistered.email,
-      County: userToBeRegistered.city,
-      Region: userToBeRegistered.region,
-      Address: userToBeRegistered.address,
-      SellerOrClientFlag: 'buyer',
+      firstName: userToBeRegistered.firstName,
+      lastName: userToBeRegistered.lastName,
+      password: userToBeRegistered.password,
+      email: userToBeRegistered.email,
+      county: userToBeRegistered.city,
+      region: userToBeRegistered.region,
+      address: userToBeRegistered.address,
+      role: userToBeRegistered.role,
+      CUI: userToBeRegistered.CUI,
     },
     json: true,
   };
@@ -91,6 +103,10 @@ exports.updateUser = catchAsync(async (req, res, next) => {
     },
     json: true,
   };
+  const token = req.headers.authorization.split(' ')[1];
+  const verifyUser = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  if (verifyUser.id !== req.params.id)
+    return next(new AppError('Invalid access', 405));
 
   const newUser = await rp(options);
   if (newUser === undefined)
@@ -99,5 +115,15 @@ exports.updateUser = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteUser = catchAsync(async (req, res, next) => {
-  return next(new AppError('Not yet implemented', 404));
+  const options = {
+    method: 'DELETE',
+    uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/user/${req.params.id}`,
+    json: true,
+  };
+
+  const newUser = await rp(options);
+  if (newUser.status === 'fail')
+    return next(new AppError('Could not delete user'), 500);
+
+  res.status(200).json({ status: 'success', data: null });
 });

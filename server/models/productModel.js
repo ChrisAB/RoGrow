@@ -9,7 +9,7 @@ class Product {
     quantity,
     pickupLocation,
     origin,
-    sellerUniqueID
+    sellerID
   ) {
     this._id = _id;
     this.name = name;
@@ -20,7 +20,7 @@ class Product {
     this.quantity = quantity;
     this.pickupLocation = pickupLocation;
     this.origin = origin;
-    this.sellerUniqueID = sellerUniqueID;
+    this.sellerID = sellerID;
   }
 
   verify() {

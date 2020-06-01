@@ -7,7 +7,8 @@ class User {
     county,
     region,
     address,
-    sellerOrClientFlag
+    role,
+    CUI
   ) {
     this._id = _id;
     this.firstName = firstName;
@@ -16,7 +17,8 @@ class User {
     this.region = region;
     this.email = email;
     this.address = address;
-    this.sellerOrClientFlag = sellerOrClientFlag;
+    this.role = role;
+    this.CUI = CUI;
   }
 
   changedPasswordAfter(date) {
