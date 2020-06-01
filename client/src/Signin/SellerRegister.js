@@ -45,8 +45,9 @@ const  SellerRegister = () =>
       address: address,
       CUI: CUI
     });
+    console.log(data)
     if (data) {
-      if (data.status != "succes") {
+      if (data.status != "success") {
         setValues({ ...values, error: data.message, success: false });
       } else {
         setValues({
@@ -77,52 +78,52 @@ const  SellerRegister = () =>
                             <div className="col-md-6">
                               <div className="m-1">
                                   <label className=" pl-sm-1 pt-1">First Name</label>
-                                  <input type="text"  onChange={handleChanege('firstName')} id="inputFirstName" className="form-control" placeholder="First Name" required autoFocus/>
+                                  <input type="text" value={firstName} onChange={handleChanege('firstName')} id="inputFirstName" className="form-control" placeholder="First Name" required autoFocus/>
                               </div>
                               <div className="m-1">
                                   <label className="text-gray-800 large pl-sm-1 pt-1">Password</label>
-                                  <input type="password" onChange={handleChanege('password')} id="inputPassword" className="form-control" placeholder="Password" required></input>
+                                  <input type="password" value={password} onChange={handleChanege('password')} id="inputPassword" className="form-control" placeholder="Password" required></input>
                               </div>
                           </div>
                             <div className="col-md-6">
                               <div className="m-1">
                                   <label className="text-gray-800 large pl-sm-1 pt-1">Last Name</label>
-                                  <input type="text" onChange={handleChanege('lastName')} id="inputLastName" className="form-control" placeholder="Last Name" required autoFocus/>
+                                  <input type="text" value={lastName} onChange={handleChanege('lastName')} id="inputLastName" className="form-control" placeholder="Last Name" required autoFocus/>
                               </div>
                               <div className="m-1">
                                   <label className="text-gray-800 large pl-sm-1 pt-1">Confirm Password</label>
-                                  <input type="password" onChange={handleChanege('confirmPassword')} id="inputConfirmPassword" className="form-control" placeholder="Password" required></input>
+                                  <input type="password" value={confirmPassword} onChange={handleChanege('confirmPassword')} id="inputConfirmPassword" className="form-control" placeholder="Password" required></input>
                               </div>
                           </div>
                         </div>
                         <div>
                           <div className="m-1">
                                     <label className="text-gray-800 large pl-sm-1 pt-1">Email address</label>
-                                    <input type="email" onChange={handleChanege('email')} id="inputEmail" className="form-control" placeholder="Email address" required autoFocus/>
+                                    <input type="email" value={email} onChange={handleChanege('email')} id="inputEmail" className="form-control" placeholder="Email address" required autoFocus/>
                           </div>
                         </div>
                         <div>
                           <div className="m-1">
                                     <label className="text-gray-800 large pl-sm-1 pt-1">Country</label>
-                                    <input type="text" onChange={handleChanege('country')} id="inputCountry" className="form-control" placeholder="Country" required autoFocus/>
+                                    <input type="text" value={country}  onChange={handleChanege('country')} id="inputCountry" className="form-control" placeholder="Country" required autoFocus/>
                           </div>
                         </div>
                         <div>
                           <div className="m-1">
                                     <label className="text-gray-800 large pl-sm-1 pt-1">Region</label>
-                                    <input type="text" onChange={handleChanege('region')} id="inputRegion" className="form-control" placeholder="Region" required autoFocus/>
+                                    <input type="text" value={region} onChange={handleChanege('region')} id="inputRegion" className="form-control" placeholder="Region" required autoFocus/>
                           </div>
                         </div>
                         <div>
                           <div className="m-1">
                                     <label className="text-gray-800 large pl-sm-1 pt-1">Address</label>
-                                    <input type="text" onChange={handleChanege('address')} id="inputAddress" className="form-control" placeholder="Address" required autoFocus/>
+                                    <input type="text" value={address} onChange={handleChanege('address')} id="inputAddress" className="form-control" placeholder="Address" required autoFocus/>
                           </div>
                         </div>
                         <div>
                           <div className="m-1">
                                     <label className="text-gray-800 large pl-sm-1 pt-1">CUI</label>
-                                    <input type="text" onChange={handleChanege('CUI')} id="inputCUI" className="form-control" placeholder="CUI" required autoFocus/>
+                                    <input type="text" value={CUI} onChange={handleChanege('CUI')} id="inputCUI" className="form-control" placeholder="CUI" required autoFocus/>
                           </div>
                         </div>
                         <div className="pt-2 pb-2 mt-sm-1  mt-xs-1">

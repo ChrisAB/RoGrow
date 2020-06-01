@@ -54,4 +54,32 @@ export const registerBuyer = async (user) => {
       });
   };
 
+  export const userSession =  (data, next) => {
+      if (typeof window !== 'undefined'){
+            localStorage.setItem('jwt', JSON.stringify(data))
+            next();
+        }
+  };
+
+  export const signout = (next) => {
+    if (typeof window !== 'undefined'){
+        localStorage.removeItem('jwt');
+        next();
+    }
+  };
+
+  export const isSigned = () => {
+      if (typeof window == 'undefined'){
+            return false;
+      }
+      if (localStorage){
+          if (localStorage.getItem('jwt')){
+              return JSON.parse(localStorage.getItem('jwt'))
+          }else {
+              return false;
+          }
+      }
+
+  };
+  
 

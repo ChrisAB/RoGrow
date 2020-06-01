@@ -17,7 +17,7 @@ function Footerpage () {
                                         rogrow@contact.com
                                 </a>
                             </div>
-                            <div class="footer-copyright text-center py-1">© 2020 Copyright:
+                            <div className="footer-copyright text-center py-1">© 2020 Copyright:
                                 <Link className="footer-bg" to="/"> Rogrow</Link>
                             </div>
                         </div>

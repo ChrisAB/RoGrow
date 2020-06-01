@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {Redirect} from 'react-router-dom'
-import {login} from '../auth/index'
+import {login, userSession} from '../auth/index'
 
 const Signin = () => {
     const [values, setValues] = useState({
@@ -32,13 +32,17 @@ const Signin = () => {
             password: password
         });
         if (data) {
-            if (data.status != "succes") {
+            if (data.status != "success") {
               setValues({ ...values, error: data.message, loading: false });
             } else {
-              setValues({
-                ...values,
-                redirectToReferrer: true,
-              });
+            userSession(data,
+                () => {
+                    setValues({
+                        ...values,
+                        redirectToReferrer: true,
+                      });
+                })
+              
             }
           }
     }
@@ -80,7 +84,7 @@ const Signin = () => {
   
     const showLoading = () => (
       <div className="alert alert-info" style={{display: loading ? '' : 'none'}} >
-       <h2>Loading...</h2>
+       <h5>Loading...</h5>
        </div>
     )
     const redirectUser = () =>{
