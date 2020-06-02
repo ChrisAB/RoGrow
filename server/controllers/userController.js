@@ -65,7 +65,7 @@ exports.createUser = catchAsync(async (req, res, next) => {
     CUI
   );
   const verify = await userToBeRegistered.verify();
-  if (verify !== true) next(new AppError(verify, 400));
+  if (verify !== true) return next(new AppError(verify, 400));
   userToBeRegistered.password = await bcrypt.hash(
     userToBeRegistered.password,
     12
@@ -81,8 +81,9 @@ exports.createUser = catchAsync(async (req, res, next) => {
   };
 
   const isUserAlreadyRegistered = await rp(options);
-
-  if (isUserAlreadyRegistered.status === 'success')
+  if (isUserAlreadyRegistered.status === 'fail')
+    return next(new AppError('Database communication failed', 400));
+  if (isUserAlreadyRegistered.data != null)
     return next(new AppError('Email is already in use', 400));
 
   options = {
@@ -104,6 +105,7 @@ exports.createUser = catchAsync(async (req, res, next) => {
   const newUser = await rp(options);
   if (newUser.status === 'fail')
     return next(new AppError('Could not register'), 500);
+
   res.status(201).json({
     status: 'success',
     data: newUser.data,
