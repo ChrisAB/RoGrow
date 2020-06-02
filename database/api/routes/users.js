@@ -60,8 +60,7 @@ router.get("/:email", (req, res, next) => {
   User.findOne({ email: email })
     .exec()
     .then((doc) => {
-      if (doc != null) res.status(200).json({ status: "success", data: doc });
-      else res.status(400).json({ status: "fail", data: "User not found" });
+      res.status(200).json({ status: "success", data: doc });
     })
     .catch((err) => {
       console.log(err);
