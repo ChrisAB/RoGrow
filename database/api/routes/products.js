@@ -110,7 +110,7 @@ router.patch("/:productId", (req, res, next) => {
 
   Product.findOneAndUpdate({ _id: id }, req.body, {
     useFindAndModify: false,
-    returnNewDocument: true,
+    new: true,
   })
     .exec()
     .then((result) => {

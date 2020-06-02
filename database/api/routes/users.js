@@ -111,7 +111,7 @@ router.patch("/:userId", (req, res, next) => {
   const id = req.params.userId;
   User.findOneAndUpdate({ _id: id }, req.body, {
     useFindAndModify: false,
-    returnNewDocument: true,
+    new: true,
   })
     .exec()
     .then((result) => {
