@@ -12,6 +12,9 @@ import MainPage from './Main/MainPage'
 import PrivateRoute from './auth/PrivateRoute'
 import PublicRoute from './auth/PublicRoute'
 import EditProfile from './UserPages/EditProfile'
+import SelelrRoute from './auth/SellerRoute'
+import MyProducts from './Product/MyProducts'
+import CreateProduct from './Product/CreateProduct'
 
 const Routes = () => {
     return (
@@ -26,6 +29,8 @@ const Routes = () => {
                 <PublicRoute path="/sellerRegister" exact component={SellerRegister} />
                 <PrivateRoute path="/profile" exact component={ProfilePage}/>
                 <PrivateRoute path="/editProfile" exact component={EditProfile}/>
+                <SelelrRoute path="/myProducts" exact component={MyProducts}/>
+                <SelelrRoute path="/createProduct" exact component={CreateProduct}/>
             </Switch>
         </BrowserRouter>
     )

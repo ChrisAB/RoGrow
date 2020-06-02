@@ -11,7 +11,13 @@ const isActive = (history, path) =>{
      }
 };
 
-
+const isSeller = () => {
+     if(isSigned()){
+          if (isSigned().data.role === "seller")
+               return true;
+     }
+     return false
+};
 
 function Menu({history}) {
   return (
@@ -43,6 +49,13 @@ function Menu({history}) {
                          </li>
                     } 
 
+                    {    isSigned() && isSeller() && <React.Fragment>
+                              <li className="nav-item">
+                                   <Link className="nav-link pl-5" style={isActive(history,'/myProducts')} to="/myProducts">My  Products</Link>
+                              </li>
+                         </React.Fragment>
+                    }
+
                    { isSigned() && 
                          <React.Fragment>
                                <li className="nav-item">
@@ -57,6 +70,9 @@ function Menu({history}) {
                              
                          </React.Fragment>
                     }
+
+                  
+
                 </ul>
            </div>
 
