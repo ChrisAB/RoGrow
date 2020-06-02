@@ -26,7 +26,7 @@ exports.getUser = catchAsync(async (req, res, next) => {
     json: true,
   };
   const user = await rp(options);
-  if (user === null) return next(new AppError('No such user', 404));
+  if (user.status === 'fail') return next(new AppError('No such user', 404));
   user.password = undefined;
   res.status(200).json({
     status: 'success',
@@ -102,10 +102,11 @@ exports.createUser = catchAsync(async (req, res, next) => {
     json: true,
   };
   const newUser = await rp(options);
-  if (newUser === undefined)
+  if (newUser.status === 'fail')
     return next(new AppError('Could not register'), 500);
   res.status(201).json({
     status: 'success',
+    data: newUser.data,
   });
 });
 

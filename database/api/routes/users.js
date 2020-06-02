@@ -23,13 +23,13 @@ router.put("/", (req, res, next) => {
     .then((result) => {
       console.log(result);
       res.status(201).json({
-        message: "User created successfully!",
+        status: "success",
         createdUser: User,
       });
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({ status: "fail", error: err });
     });
 });
 
@@ -44,14 +44,14 @@ router.get("/:userId", (req, res, next) => {
     .exec()
     .then((doc) => {
       if (doc) {
-        res.status(200).json(doc);
+        res.status(200).json({ status: "success", data: doc });
       } else {
-        res.status(404).json({ message: "No valid entry found for ID" });
+        res.status(404).json({ status: "fail", data: null });
       }
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({ status: "fail", error: err });
     });
 });
 
@@ -61,11 +61,11 @@ router.get("/:email", (req, res, next) => {
   User.findOne({ Email: email })
     .exec()
     .then((doc) => {
-      res.status(200).json(doc);
+      res.status(200).json({ status: "success", data: doc });
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({ status: "success", error: err });
     });
 });
 
