@@ -108,7 +108,10 @@ router.delete("/:productId", (req, res, next) => {
 router.patch("/:productId", (req, res, next) => {
   const id = req.params.productId;
 
-  Product.findOneAndUpdate({ _id: id }, req.body)
+  Product.findOneAndUpdate({ _id: id }, req.body, {
+    useFindAndModify: false,
+    returnNewDocument: true,
+  })
     .exec()
     .then((result) => {
       res.status(201).json({

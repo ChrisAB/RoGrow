@@ -109,7 +109,10 @@ router.delete("/:userId", (req, res, next) => {
 
 router.patch("/:userId", (req, res, next) => {
   const id = req.params.userId;
-  User.findOneAndUpdate({ _id: id }, req.body, { useFindAndModify: false })
+  User.findOneAndUpdate({ _id: id }, req.body, {
+    useFindAndModify: false,
+    returnNewDocument: true,
+  })
     .exec()
     .then((result) => {
       console.log(result);

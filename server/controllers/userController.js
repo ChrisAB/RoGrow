@@ -130,6 +130,7 @@ exports.updateUser = catchAsync(async (req, res, next) => {
   const newUser = await rp(options);
   if (newUser.data === null)
     return next(new AppError('Could not update user info'), 500);
+  newUser.password = undefined;
   res.status(200).json({ status: 'success', data: newUser.data });
 });
 
