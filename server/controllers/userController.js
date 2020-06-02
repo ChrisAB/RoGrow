@@ -113,6 +113,11 @@ exports.createUser = catchAsync(async (req, res, next) => {
 });
 
 exports.updateUser = catchAsync(async (req, res, next) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const verifyUser = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  if (verifyUser.id !== req.params.id)
+    return next(new AppError('Invalid access', 405));
+
   const options = {
     method: 'PATCH',
     uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/user/${req.params.id}`,
@@ -121,10 +126,6 @@ exports.updateUser = catchAsync(async (req, res, next) => {
     },
     json: true,
   };
-  const token = req.headers.authorization.split(' ')[1];
-  const verifyUser = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-  if (verifyUser.id !== req.params.id)
-    return next(new AppError('Invalid access', 405));
 
   const newUser = await rp(options);
   if (newUser === undefined)
@@ -133,6 +134,11 @@ exports.updateUser = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteUser = catchAsync(async (req, res, next) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const verifyUser = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  if (verifyUser.id !== req.params.id)
+    return next(new AppError('Invalid access', 405));
+
   const options = {
     method: 'DELETE',
     uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/user/${req.params.id}`,
