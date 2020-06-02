@@ -83,7 +83,7 @@ exports.createUser = catchAsync(async (req, res, next) => {
   const isUserAlreadyRegistered = await rp(optionsCheck);
   if (isUserAlreadyRegistered.status === 'error')
     return next(new AppError('Database communication failed', 500));
-  if (isUserAlreadyRegistered.data === 'success')
+  if (isUserAlreadyRegistered.status === 'success')
     return next(new AppError('Email is already in use', 400));
 
   const options = {
