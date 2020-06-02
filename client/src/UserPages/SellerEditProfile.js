@@ -1,8 +1,9 @@
 import React,  {useState, useEffect} from 'react';
-import {withRouter} from 'react-router-dom'
-import { isSigned, readUser } from "../auth/index";
+import {withRouter, Redirect} from 'react-router-dom'
+import { isSigned } from "../auth/index";
+import {readUser, update, updateUserStorage} from './apiUser'
 
-const BuyerEditProfile = () => {
+const SellerEditProfile = () => {
 
     const {data: {_id}} = isSigned();
 
@@ -13,6 +14,7 @@ const BuyerEditProfile = () => {
         county: "",
         region: "",
         address: "",
+        CUI: "",
         error: "",
         success: false,
       });
@@ -24,6 +26,7 @@ const BuyerEditProfile = () => {
       county,
       region,
       address,
+      CUI,
       error,
       success,
     } = values;
@@ -45,7 +48,8 @@ const BuyerEditProfile = () => {
                     county: userData.data.data.county,
                     region: userData.data.data.region,
                     address: userData.data.data.address,
-                    success: true
+                    CUI:  userData.data.data.CUI,
+                    success: false 
                })
             }
         })
@@ -61,6 +65,45 @@ const BuyerEditProfile = () => {
     const handleChanege = (name) => (event) => {
         setValues({ ...values, error: false, [name]: event.target.value });
       };
+
+
+    const clickUpdate = e => {
+      e.preventDefault();
+      //console.log( { firstName, lastName,email,county,region,address,CUI})
+      update(_id, token, 
+        { firstName,
+          lastName,
+          email,
+          county,
+          region,
+          address,
+          CUI}
+          ).then(result => {
+            //console.log(result);
+            if(result.status !== "success"){
+              console.log(result.message);
+            } else {
+              updateUserStorage(result , () => {
+                setValues({
+                  ...values,
+                  firstName: result.data.firstName,
+                  lastName: result.data.lastName,
+                  email: result.data.email ,
+                  county: result.data.county,
+                  region: result.data.region,
+                  address: result.data.address,
+                  CUI: result.data.CUI,
+                  success:true
+                })
+              })
+            }
+          })
+    }
+    const rediderectUser = (succes) => {
+      if(succes){
+        return <Redirect to='/' />
+      }
+    }
 
     const UserForm = () => (
         <section className="position-relative pt-12 pt-md-14 mt-n11">
@@ -169,11 +212,26 @@ const BuyerEditProfile = () => {
                           />
                         </div>
                       </div>
+                      <div>
+                        <div className="m-1">
+                          <label className="text-gray-800 large pl-sm-1 pt-1">
+                            CUI
+                          </label>
+                          <input
+                            onChange={handleChanege("CUI")}
+                            type="text"
+                            id="inputAddress"
+                            className="form-control"
+                            placeholder="Address"
+                            value={CUI}
+                            required
+                          />
+                        </div>
+                      </div>
                       <div className="pt-2 pb-2 mt-sm-1  mt-xs-1">
                         <button
-                          
-                          className="btn btn-lg btn-block blue-bg"
-                        
+                          onClick={clickUpdate}
+                          className="btn btn-lg btn-block yellow-bg"
                         >
                          Update Profile
                         </button>
@@ -182,7 +240,7 @@ const BuyerEditProfile = () => {
                   </div>
                   <div className="col-12 col-md-6  pl-lg-5 pl-xl-5 pl-md-5">
                     <img
-                      src="../assets/register/buyer.svg"
+                      src="../assets/register/seller.svg"
                       alt="shopping illustration"
                       width="90%"
                       className="img-fluid mw-100 float-right mb-md-0 pl-sm-1 pl-5"
@@ -196,10 +254,11 @@ const BuyerEditProfile = () => {
     return (
         <div>
             {UserForm()}
+            {rediderectUser(success)}
         </div>
     )
   };
     
 
-export default withRouter(BuyerEditProfile);
+export default withRouter(SellerEditProfile);
 

@@ -1,12 +1,15 @@
 import React,  {useState} from 'react';
 import {readUser, isSigned} from '../auth/index'
 import {Link} from 'react-router-dom'
+import {deleteUser,removeToken} from './apiUser'
+import { Redirect} from 'react-router-dom'
 
 const ProfilePage = () => {
 
 
-    const {data: {firstName,  lastName, email, county, region, address, role}} = isSigned();
-    
+    const {data: {_id, firstName,  lastName, email, county, region, address, role}} = isSigned();
+    const {token} =  isSigned();
+
     var Cui = ""
 
     const isSeller = () =>{
@@ -28,6 +31,26 @@ const ProfilePage = () => {
             }
         }
    };
+
+   const rediderectUser = () => {
+       if (successStatus)
+        window.location.reload(false);
+    }
+
+    var successStatus = false;
+
+    const clickDelete = e => {
+        console.log("DELETE")
+        deleteUser(_id,token).then(data => {
+            if(data.status !== "success"){
+                console.log(data.message);
+              } else {
+                removeToken();
+                successStatus = true;
+                rediderectUser();
+              }
+        })
+    }
     
     const UserInfo = () => (
         <div>
@@ -74,10 +97,14 @@ const ProfilePage = () => {
                                     </div>
                                     <div className="row pt-3">
                                         <div className="pt-2 col-6  pb-2">
-                                        <button className="btn btn-lg btn-block yellow-bg text-wrap" >Edit Profile</button>
+                                        <button className="btn btn-lg btn-block yellow-bg text-wrap" >
+                                            <Link className="nav-link p-0 black-link" to="/editProfile">Edit Profile</Link>
+                                        </button>
                                         </div>
                                          <div className="pt-2 col-6  pb-2">
-                                            <button className="btn btn-lg btn-block yellow-bg text-wrap" >Delete Profile</button>
+                                            <button onClick={clickDelete}  className="btn btn-lg btn-block yellow-bg text-wrap" >
+                                                    <div className="black-link">Delete Profile</div>
+                                            </button>
                                         </div>
                                     </div>
                                 </React.Fragment>
@@ -91,8 +118,8 @@ const ProfilePage = () => {
                                         </button>
                                     </div>
                                     <div className="pt-2 col-6  pb-2">
-                                        <button className="btn btn-lg btn-block blue-bg text-wrap">
-                                            <Link className="nav-link p-0 white-link" to="/">Delete Profile</Link>
+                                        <button  onClick={clickDelete} className="btn btn-lg btn-block blue-bg text-wrap">
+                                            <div className="white-link">Delete Profile</div> 
                                         </button>
                                     </div>
                                 </div>

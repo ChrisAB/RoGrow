@@ -1,5 +1,6 @@
 import React from 'react'
 import BuyerEditProfile from "./BuyerEditProfile"
+import SellerEditProfile from "./SellerEditProfile"
 import {isSigned} from '../auth/index'
 
 const EditProfile = () => {
@@ -15,6 +16,7 @@ const EditProfile = () => {
     return (
         <div>
             {!isSeller() && <BuyerEditProfile/>}
+            {isSeller() && <SellerEditProfile/>}
         </div>
     )
 }
