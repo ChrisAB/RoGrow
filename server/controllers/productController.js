@@ -21,14 +21,14 @@ exports.getAllProducts = catchAsync(async (req, res, next) => {
 
 exports.getProduct = catchAsync(async (req, res, next) => {
   const options = {
-    uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/product/${req.data.id}`,
+    uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/product/${req.params.id}`,
     json: true,
   };
-  const products = await rp(options);
-  if (products === undefined) return next(new AppError('No such product', 404));
-  res.status(200).son({
+  const product = await rp(options);
+  if (product === undefined) return next(new AppError('No such product', 404));
+  res.status(200).json({
     status: 'success',
-    data: products,
+    data: product,
   });
 });
 
@@ -75,7 +75,7 @@ exports.createProduct = catchAsync(async (req, res, next) => {
       quantity,
       pickupLocation,
       origin,
-      sellerID,
+      sellerID: verifyUser.id,
     },
     json: true,
   };
@@ -88,9 +88,60 @@ exports.createProduct = catchAsync(async (req, res, next) => {
 });
 
 exports.updateProduct = catchAsync(async (req, res, next) => {
-  return next(new AppError('Not yet implemented', 404));
+  const token = req.headers.authorization.split(' ')[1];
+  const verifyUser = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+
+  let options = {
+    method: 'GET',
+    uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/product/${req.params.id}`,
+    json: true,
+  };
+  const product = await rp(options);
+  if (product.data === null) return next(new AppError('No such product', 404));
+
+  if (verifyUser.id !== product.data.sellerID)
+    return next(new AppError('Invalid access', 405));
+  console.log(req.body);
+  options = {
+    method: 'PATCH',
+    uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/product/${req.params.id}`,
+    body: {
+      $set: req.body,
+    },
+    json: true,
+  };
+
+  const newProduct = await rp(options);
+  console.log(newProduct);
+  if (newProduct.status === 'fail')
+    return next(new AppError('Could not update user info'), 500);
+  res.status(200).json({ status: 'success', data: newProduct.data });
 });
 
 exports.deleteProduct = catchAsync(async (req, res, next) => {
-  return next(new AppError('Not yet implemented', 404));
+  const token = req.headers.authorization.split(' ')[1];
+  const verifyUser = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+
+  let options = {
+    method: 'GET',
+    uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/product/${req.params.id}`,
+    json: true,
+  };
+  const products = await rp(options);
+  if (products.data === null) return next(new AppError('No such product', 404));
+
+  if (verifyUser.id !== products.data.sellerID)
+    return next(new AppError('Invalid access', 405));
+
+  options = {
+    method: 'DELETE',
+    uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/product/${req.params.id}`,
+    json: true,
+  };
+
+  const deletedProduct = await rp(options);
+  if (deletedProduct.status === 'fail')
+    return next(new AppError('Could not delete product'), 500);
+
+  res.status(200).json({ status: 'success', data: null });
 });

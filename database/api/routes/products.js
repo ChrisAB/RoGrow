@@ -15,7 +15,7 @@ router.put("/", (req, res, next) => {
     quantity: req.body.quantity,
     pickupLocation: req.body.pickupLocation,
     origin: req.body.origin,
-    sellerID: req.body.sellerID,
+    sellerID: new mongoose.Types.ObjectId(req.body.sellerID),
   });
 
   product
@@ -23,8 +23,8 @@ router.put("/", (req, res, next) => {
     .then((result) => {
       console.log(result);
       res.status(201).json({
-        message: "Product created successfully!",
-        createdProduct: Product,
+        status: "success",
+        data: product,
       });
     })
     .catch((err) => {
@@ -64,16 +64,11 @@ router.get("/:productId", (req, res, next) => {
   Product.findById(id)
     .exec()
     .then((doc) => {
-      console.log("From database", doc);
-      if (doc) {
-        res.status(200).json(doc);
-      } else {
-        res.status(404).json({ message: "No valid entry found for ID" });
-      }
+      res.status(200).json({ status: "success", data: doc });
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({ stauts: "error", error: err });
     });
 });
 
@@ -86,15 +81,11 @@ router.get("/", (req, res, next) => {
   Product.find({ $set: updateOps })
     .exec()
     .then((result) => {
-      if (result) res.status(200).json(result);
-      else
-        res
-          .status(404)
-          .json({ message: "No valid entries for these search queries" });
+      res.status(200).json({ status: "success", data: result });
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json(err);
+      res.status(500).json({ status: "error", data: err });
     });
 });
 
@@ -117,18 +108,17 @@ router.delete("/:productId", (req, res, next) => {
 router.patch("/:productId", (req, res, next) => {
   const id = req.params.productId;
 
-  Product.update({ _id: id }, { $set: req.body })
+  Product.findOneAndUpdate({ _id: id }, req.body)
     .exec()
     .then((result) => {
-      console.log(result);
       res.status(201).json({
-        message: "Product updated successfully!",
-        createdProduct: Product,
+        status: "success",
+        data: result,
       });
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({ status: "error", error: err });
     });
 });
 

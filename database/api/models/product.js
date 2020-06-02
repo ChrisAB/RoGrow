@@ -12,7 +12,6 @@ const productSchema = mongoose.Schema({
   origin: { type: String, required: true },
   sellerID: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "/user",
     required: true,
   },
 });

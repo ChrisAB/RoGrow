@@ -56,8 +56,8 @@ app.use((req, res, next) => {
 });
 
 // ROUTES
-app.use('/api/v1/user/', userRoutes);
 app.use('/api/v1/user/login', authController.loginUser);
+app.use('/api/v1/user/', userRoutes);
 app.use('/api/v1/product', productRoutes);
 
 app.get('/api/v1/category', (req, res, next) => {

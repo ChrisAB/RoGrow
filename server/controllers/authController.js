@@ -30,7 +30,7 @@ exports.loginUser = catchAsync(async (req, res, next) => {
   };
   const userFromDatabase = await rp(options);
   if (
-    userFromDatabase.status === 'fail' ||
+    userFromDatabase.data === null ||
     !(await userLoginRequest.correctPassword(userFromDatabase.data.password))
   )
     return next(new AppError('Incorrect email or password!'), 400);

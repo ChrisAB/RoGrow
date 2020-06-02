@@ -47,8 +47,8 @@ exports.createUser = catchAsync(async (req, res, next) => {
   } = req.body;
   let CUI;
   let role;
-  // eslint-disable-next-line prefer-destructuring
   if (req.body.CUI) {
+    // eslint-disable-next-line prefer-destructuring
     CUI = req.body.CUI;
     role = 'seller';
   } else role = 'buyer';
@@ -117,7 +117,7 @@ exports.updateUser = catchAsync(async (req, res, next) => {
   const verifyUser = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
   if (verifyUser.id !== req.params.id)
     return next(new AppError('Invalid access', 405));
-
+  console.log(req.params.id);
   const options = {
     method: 'PATCH',
     uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/user/${req.params.id}`,
@@ -128,9 +128,9 @@ exports.updateUser = catchAsync(async (req, res, next) => {
   };
 
   const newUser = await rp(options);
-  if (newUser === undefined)
+  if (newUser.data === null)
     return next(new AppError('Could not update user info'), 500);
-  res.status(200).json({ status: 'success', data: newUser });
+  res.status(200).json({ status: 'success', data: newUser.data });
 });
 
 exports.deleteUser = catchAsync(async (req, res, next) => {
