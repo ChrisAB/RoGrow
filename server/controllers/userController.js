@@ -71,7 +71,7 @@ exports.createUser = catchAsync(async (req, res, next) => {
     12
   );
 
-  let options = {
+  const optionsCheck = {
     method: 'GET',
     uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/user/${email}`,
     qs: {
@@ -80,13 +80,13 @@ exports.createUser = catchAsync(async (req, res, next) => {
     json: true,
   };
 
-  const isUserAlreadyRegistered = await rp(options);
+  const isUserAlreadyRegistered = await rp(optionsCheck);
   if (isUserAlreadyRegistered.status === 'error')
-    return next(new AppError('Database communication failed', 400));
+    return next(new AppError('Database communication failed', 500));
   if (isUserAlreadyRegistered.data === 'success')
     return next(new AppError('Email is already in use', 400));
 
-  options = {
+  const options = {
     method: 'PUT',
     uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/user`,
     body: {
