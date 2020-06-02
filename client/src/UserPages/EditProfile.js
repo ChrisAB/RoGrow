@@ -3,10 +3,10 @@ import BuyerEditProfile from "./BuyerEditProfile"
 import {isSigned} from '../auth/index'
 
 const EditProfile = () => {
-    const {data: {userFromDatabase: {SellerOrClientFlag}}} = isSigned();
+    const {data:  {role}} = isSigned();
     
     const isSeller = () =>{
-        if (SellerOrClientFlag == "seller"){
+        if (role == "seller"){
             return true;
         }
         return false;

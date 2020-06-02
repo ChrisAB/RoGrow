@@ -5,20 +5,20 @@ import {Link} from 'react-router-dom'
 const ProfilePage = () => {
 
 
-    const {data: {userFromDatabase: { FirstName, LastName, Email, County, Region, Address, SellerOrClientFlag}}} = isSigned();
+    const {data: {firstName,  lastName, email, county, region, address, role}} = isSigned();
     
-    const Cui = ""
+    var Cui = ""
 
     const isSeller = () =>{
-        if (SellerOrClientFlag == "seller"){
-            const {data: {userFromDatabase: {CUI}}} = isSigned();
+        if (role == "seller"){
+            const {data:  {CUI}} = isSigned();
             Cui = CUI;
             return true;
         }
         return false;
     }
     const isColor = () =>{
-        if(SellerOrClientFlag == "seller"){
+        if(role == "seller"){
              return {
                 color: '#f3b95b'
              }
@@ -39,32 +39,32 @@ const ProfilePage = () => {
                         <h1 className="card-title tile-info mb-0" style={isColor()}>
                         User profile
                         </h1>
-                        <h4 className="card-subtitle text-gray-800 mt-2 text-muted">{SellerOrClientFlag}</h4>
+                        <h4 className="card-subtitle text-gray-800 mt-2 text-muted">{role}</h4>
                     </div>
                     <div className="mt-4 card-text mb-0 pl-sm-1 text-center text-lg-left text-sm-left">
                             <div >
                                 <label className="font-weight-bold text-gray-800 pr-1 pl-sm-1 pt-1">First Name: </label>
-                                <label className="pl-sm-1 pt-1 ">{FirstName}</label>
+                                <label className="pl-sm-1 pt-1 ">{ firstName}</label>
                             </div>
                             <div >
                                 <label className="font-weight-bold text-gray-800 pr-1 pl-sm-1 pt-1">Last Name: </label>
-                                <label className="pl-sm-1 pt-1 ">{LastName}</label>
+                                <label className="pl-sm-1 pt-1 ">{  lastName}</label>
                             </div>
                             <div >
                                 <label className="font-weight-bold text-gray-800 pr-1 pl-sm-1 pt-1">Email: </label>
-                                <label className="pl-sm-1 pt-1 ">{Email}</label>
+                                <label className="pl-sm-1 pt-1 ">{email}</label>
                             </div>
                             <div >
                                 <label className="font-weight-bold text-gray-800 pr-1 pl-sm-1 pt-1">Country: </label>
-                                <label className="pl-sm-1 pt-1 ">{County}</label>
+                                <label className="pl-sm-1 pt-1 ">{county}</label>
                             </div>
                             <div >
                                 <label className="font-weight-bold text-gray-800 pr-1 pl-sm-1 pt-1">Region: </label>
-                                <label className="pl-sm-1 pt-1 ">{Region}</label>
+                                <label className="pl-sm-1 pt-1 ">{region}</label>
                             </div>
                             <div >
                                 <label className="font-weight-bold text-gray-800 pr-1 pl-sm-1 pt-1">Address: </label>
-                                <label className="pl-sm-1 pt-1 ">{Address}</label>
+                                <label className="pl-sm-1 pt-1 ">{address}</label>
                             </div>
                             { isSeller() && 
                                 <React.Fragment>

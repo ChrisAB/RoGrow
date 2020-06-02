@@ -4,7 +4,7 @@ import { isSigned, readUser } from "../auth/index";
 
 const BuyerEditProfile = (props) => {
 
-    const {data: {userFromDatabase: {_id}}} = isSigned();
+    const {data: {_id}} = isSigned();
 
     const [values, setValues] = useState({
         firstName: "",
@@ -36,15 +36,15 @@ const BuyerEditProfile = (props) => {
                 setValues({ ...values, error: userData.message, success: false });
             }
             else {
-                
+               //console.log(userData);
                setValues({
                     ...values,
-                    firstName: userData.data.FirstName,
-                    lastName: userData.data.LastName,
-                    email: userData.data.Email ,
-                    county: userData.data.County,
-                    region: userData.data.Region,
-                    address: userData.data.Address,
+                    firstName: userData.data.data.firstName,
+                    lastName: userData.data.data.lastName,
+                    email: userData.data.data.email ,
+                    county: userData.data.data.county,
+                    region: userData.data.data.region,
+                    address: userData.data.data.address,
                     success: true
                })
             }
