@@ -21,15 +21,14 @@ router.put("/", (req, res, next) => {
   user
     .save()
     .then((result) => {
-      console.log(result);
       res.status(201).json({
         status: "success",
-        createdUser: User,
+        data: user,
       });
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ status: "fail", error: err });
+      res.status(500).json({ status: "error", error: err });
     });
 });
 
@@ -51,21 +50,22 @@ router.get("/:userId", (req, res, next) => {
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ status: "fail", error: err });
+      res.status(500).json({ status: "error", error: err });
     });
 });
 
 router.get("/:email", (req, res, next) => {
   const email = req.query.email;
 
-  User.findOne({ Email: email })
+  User.findOne({ email: email })
     .exec()
     .then((doc) => {
-      res.status(200).json({ status: "success", data: doc });
+      if (doc != null) res.status(200).json({ status: "success", data: doc });
+      else res.status(404).json({ status: "fail", data: "User not found" });
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ status: "success", error: err });
+      res.status(500).json({ status: "error", error: err });
     });
 });
 
