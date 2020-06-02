@@ -61,7 +61,7 @@ router.get("/:email", (req, res, next) => {
     .exec()
     .then((doc) => {
       if (doc != null) res.status(200).json({ status: "success", data: doc });
-      else res.status(404).json({ status: "fail", data: "User not found" });
+      else res.status(400).json({ status: "fail", data: "User not found" });
     })
     .catch((err) => {
       console.log(err);
