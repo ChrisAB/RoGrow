@@ -11,11 +11,11 @@ exports.getAllProducts = catchAsync(async (req, res, next) => {
     json: true,
   };
   const products = await rp(options);
-  if (products === undefined)
+  if (products.data === null)
     return next(new AppError('Database failed to respond'), 500);
   res.status(200).json({
     status: 'success',
-    data: products,
+    data: products.data,
   });
 });
 
@@ -28,7 +28,7 @@ exports.getProduct = catchAsync(async (req, res, next) => {
   if (product === undefined) return next(new AppError('No such product', 404));
   res.status(200).json({
     status: 'success',
-    data: product,
+    data: product.data,
   });
 });
 
@@ -101,7 +101,7 @@ exports.updateProduct = catchAsync(async (req, res, next) => {
 
   if (verifyUser.id !== product.data.sellerID)
     return next(new AppError('Invalid access', 405));
-  console.log(req.body);
+
   options = {
     method: 'PATCH',
     uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/product/${req.params.id}`,
@@ -112,7 +112,7 @@ exports.updateProduct = catchAsync(async (req, res, next) => {
   };
 
   const newProduct = await rp(options);
-  console.log(newProduct);
+
   if (newProduct.status === 'fail')
     return next(new AppError('Could not update user info'), 500);
   res.status(200).json({ status: 'success', data: newProduct.data });

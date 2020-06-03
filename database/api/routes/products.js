@@ -21,7 +21,6 @@ router.put("/", (req, res, next) => {
   product
     .save()
     .then((result) => {
-      console.log(result);
       res.status(201).json({
         status: "success",
         data: product,
@@ -29,7 +28,7 @@ router.put("/", (req, res, next) => {
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({ status: "error", error: err });
     });
 });
 
@@ -39,21 +38,11 @@ router.get("/", (req, res, next) => {
   Product.find()
     .exec()
     .then((docs) => {
-      const response = {
-        products: docs.map((doc) => {
-          return {
-            name: doc.name,
-            description: doc.description,
-            price: doc.price,
-          };
-        }),
-      };
-
-      res.status(200).json(response);
+      res.status(200).json({ status: "success", data: docs });
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({ status: "error", error: err });
     });
 });
 
@@ -95,13 +84,13 @@ router.delete("/:productId", (req, res, next) => {
     .exec()
     .then((result) => {
       res.status(201).json({
-        message: "Product deleted successfully!",
-        createdProduct: Product,
+        status: "success",
+        data: null,
       });
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ error: err });
+      res.status(500).json({ status: "error", error: err });
     });
 });
 
