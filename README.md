@@ -2,6 +2,10 @@
 
 Web application meant to help local producers be discovered more.
 
+## Current demo
+
+Current demo is hosted at [Demo](http://18.196.100.201:3000).
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
