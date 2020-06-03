@@ -1,9 +1,9 @@
 import React,  {useState, useEffect} from 'react';
 import {withRouter, Redirect} from 'react-router-dom'
 import { isSigned } from "../auth/index";
-import {readUser, update, updateUserStorage} from './apiUser'
+import { updateProduct, readProduct} from './productApi'
 
-const SellerEditProfile = ({product}) => {
+const EditProduct = ({match}) => {
 
     const [values, setValues] = useState({
         name: "",
@@ -14,7 +14,7 @@ const SellerEditProfile = ({product}) => {
         quantity: "",
         pickupLocation: "",
         origin: "",
-        sellerID: _id,
+        sellerID: "",
         error: "",
         success: false,
       });
@@ -28,31 +28,41 @@ const SellerEditProfile = ({product}) => {
         quantity,
         pickupLocation,
         origin,
+        sellerID,
         error,
         success,
     } = values;
     
     const {token} =  isSigned();
 
-    const init =  () => {
-        if(product){
+    const init =  (productId) => {
+        //console.log(productId);
+        readProduct(productId, token).then(data => {
+            if(data.status !== "success"){
+                setValues({ ...values, error: data.message, success: false });
+            }
+            else {
+                console.log(data)
+               //console.log(userData);
                setValues({
                     ...values,
-                    name: product.name,
-                    category: product.category,
-                    subcategory: product.subcategory,
-                    description: product.description,
-                    price: product.price,
-                    quantity: product.quantity,
-                    pickupLocation: product.pickupLocation,
-                    origin: product.origin,
-                    success: false 
+                    name: data.data.name,
+                    category: data.data.category,
+                    subcategory: data.data.subcategory,
+                    description: data.data.description,
+                    price: data.data.price,
+                    quantity: data.data.quantity,
+                    pickupLocation: data.data.pickupLocation,
+                    origin: data.data.origin,
+                    sellerID: data.data.sellerID,
+                    success: false
                })
-            }     
+            }
+        })
     }
     
     useEffect(()=>{
-        init()
+        init(match.params.productId)
     }, []);
     
     
@@ -63,8 +73,8 @@ const SellerEditProfile = ({product}) => {
 
 
     const clickUpdate = e => {
-      e.preventDefault();
-      updateProduct(product._id, token, 
+        e.preventDefault();
+        updateProduct(match.params.productId, token, 
         {   name,
             category,
             subcategory,
@@ -72,12 +82,29 @@ const SellerEditProfile = ({product}) => {
             price,
             quantity,
             pickupLocation,
-            origin}
-          ).then(result => {
+            origin,
+            sellerID}
+          ).then(data => {
             //console.log(result);
-            if(result.status !== "success"){
-              console.log(result.message);
+            if(data.status !== "success"){
+              console.log(data.message);
+              setValues({ ...values, error: data.message, success: false });
             } else {
+                console.log(data)
+               //console.log(userData);
+               setValues({
+                    ...values,
+                    name: data.data.name,
+                    category: data.data.category,
+                    subcategory: data.data.subcategory,
+                    description: data.data.description,
+                    price: data.data.price,
+                    quantity: data.data.quantity,
+                    pickupLocation: data.data.pickupLocation,
+                    origin: data.data.origin,
+                    error: "",
+                    success: true
+               })
               
             }
           })
@@ -225,15 +252,20 @@ const SellerEditProfile = ({product}) => {
         </section>
       );
 
+      const showError = () => (
+        <div className="alert alert-danger text-centre" style={{display: error ? '' : 'none'}} >
+          {error}
+        </div>
+      )
 
     return (
         <div>
+            {showError()}
             {CreateProductForm()}
-            {rediderectUser(success)}
         </div>
     )
   };
     
 
-export default withRouter(SellerEditProfile);
+export default withRouter(EditProduct);
 

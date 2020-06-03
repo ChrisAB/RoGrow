@@ -16,6 +16,8 @@ import SelelrRoute from './auth/SellerRoute'
 import MyProducts from './Product/MyProducts'
 import CreateProduct from './Product/CreateProduct'
 import ProductPage from './Product/ProductPage'
+import EditProduct from './Product/EditProduct'
+import ViewProduct from './Product/ViewProduct'
 
 const Routes = () => {
     return (
@@ -33,7 +35,9 @@ const Routes = () => {
                 <PrivateRoute path="/editProfile" exact component={EditProfile}/>
                 <SelelrRoute path="/myProducts" exact component={MyProducts}/>
                 <SelelrRoute path="/createProduct" exact component={CreateProduct}/>
-                <SelelrRoute path="/editProduct/:productId" exact component={CreateProduct}/>
+                <SelelrRoute path="/editProduct/:productId" exact component={EditProduct}/>
+                <PrivateRoute path="/view/:productId" exact component={ViewProduct}/>
+
             </Switch>
         </BrowserRouter>
     )

@@ -76,3 +76,17 @@ export const updateProduct =  (productId, token, product) => {
   .catch(err => console.log(err));
 };
 
+export const readProduct =  (productId, token) => {
+  return  fetch(`${API}/v1/product/${productId}`,{
+      method: "GET",
+      headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+      }
+  }) .then(response => {
+      return response.json();
+  })
+  .catch(err => console.log(err));
+};
+

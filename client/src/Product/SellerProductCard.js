@@ -34,7 +34,7 @@ const SellerProductCard = ({product}) => {
                     
                     <div className="row p-1">
                         <button className="btn p-1 col-5 btn-lg m-2 yellow-bg" >
-                            <Link to="/" className="small white-link p-0 nav-link black-link text-truncate" >Edit product
+                            <Link to={`/editProduct/${product._id}`} className="small white-link p-0 nav-link black-link text-truncate" >Edit product
                             </Link>
                         </button>
                         <button onClick={clickDelete} className="btn p-1 col-5 btn-lg m-2 yellow-bg" >

@@ -17,7 +17,7 @@ const GeneralProductCard = ({product}) => {
                     
                     <div className="row pl-2 pr-2">
                         <button className="btn p-1 col btn-lg m-2 blue-bg" >
-                            <Link to="/" className="small white-link p-0 nav-link white-link text-truncate" >View product
+                            <Link to={`/view/${product._id}`} className="small white-link p-0 nav-link white-link text-truncate" >View product
                             </Link>
                         </button>
                 </div>
