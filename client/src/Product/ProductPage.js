@@ -24,16 +24,9 @@ function ProductPage() {
       loadProducts()
     }, [])
 
-    const  ProductsPage = () => (
-      <div>
-
-      </div>
-   
-    );
-
     return (
         <section className="position-relative pt-12 pt-md-14 mt-n11">
-            {ProductsPage()}
+            
             <div className="mb-5 pb-5 ml-5 mr-5 justify-content-center">
                 <div className="col-12 mt-5 pt-2 card">
                     search options

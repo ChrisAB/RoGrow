@@ -33,6 +33,7 @@ const Routes = () => {
                 <PrivateRoute path="/editProfile" exact component={EditProfile}/>
                 <SelelrRoute path="/myProducts" exact component={MyProducts}/>
                 <SelelrRoute path="/createProduct" exact component={CreateProduct}/>
+                <SelelrRoute path="/editProduct/:productId" exact component={CreateProduct}/>
             </Switch>
         </BrowserRouter>
     )

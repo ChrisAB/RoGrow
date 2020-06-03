@@ -60,3 +60,19 @@ export const deletePoduct =  (productId, token) => {
   })
   .catch(err => console.log(err));
 };
+
+export const updateProduct =  (productId, token, product) => {
+  return  fetch(`${API}/v1/user/${productId}`,{
+      method: "PATCH",
+      headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(product)
+  }) .then(response => {
+      return response.json();
+  })
+  .catch(err => console.log(err));
+};
+
