@@ -33,7 +33,7 @@ router.put("/", (req, res, next) => {
 });
 
 router.get("/", (req, res, next) => {
-  if (req.query > 0) return next();
+  if (req.query.length > 0) return next();
 
   Product.find()
     .exec()
@@ -47,7 +47,6 @@ router.get("/", (req, res, next) => {
 });
 
 router.get("/:productId", (req, res, next) => {
-  if (req.query.length > 0) return next();
   const id = req.params.productId;
 
   Product.findById(id)
@@ -62,12 +61,7 @@ router.get("/:productId", (req, res, next) => {
 });
 
 router.get("/", (req, res, next) => {
-  const updateOps = {};
-  for (const ops of req.query) {
-    updateOps[ops.propName] = ops.value;
-  }
-
-  Product.find({ $set: updateOps })
+  Product.find(req.query)
     .exec()
     .then((result) => {
       res.status(200).json({ status: "success", data: result });
