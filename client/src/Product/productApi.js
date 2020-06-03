@@ -92,7 +92,7 @@ export const readProduct =  (productId, token) => {
 
 
 export const getSearchProducts =  async (token, product) => {
-  return await fetch(`${API}/v1/product?name=${product.name}&price=${product.price}&quantity=${product.quantity}`,{
+  return await fetch(`${API}/v1/product?name=${product.name}&price=${product.price}&quantity=${product.quantity}&origin=${product.origin}&pickupLocation=${product.pickupLocation}`,{
       method: "GET",
       headers: {
           Accept: "application/json",

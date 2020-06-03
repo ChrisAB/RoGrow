@@ -80,7 +80,7 @@ function ProductPage() {
     const searchForm = () => {
       return (
                     <div>
-                      <a className="btn btn-lg btn-block blue-bg white-link" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                      <a className="btn btn-lg btn-block blue-bg white-link" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded={expandedSearch} aria-controls="collapseExample">
                                 Search
                       </a>
                       <div className={`card p-4 ${expandedValue()}`} id="collapseExample">
