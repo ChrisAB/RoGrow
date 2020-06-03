@@ -74,6 +74,10 @@
     opacity: 50%;
 }
 
+.white-bg{
+    background-color: #fafaf9;
+}
+
 .display-3{font-size:3rem;font-weight:400;line-height:1}
 .text-gray-800{color:#384c74!important}
 .font-weight-lighter{font-weight:lighter!important}

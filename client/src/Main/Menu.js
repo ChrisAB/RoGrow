@@ -11,7 +11,13 @@ const isActive = (history, path) =>{
      }
 };
 
-
+const isSeller = () => {
+     if(isSigned()){
+          if (isSigned().data.role === "seller")
+               return true;
+     }
+     return false
+};
 
 function Menu({history}) {
   return (
@@ -31,6 +37,10 @@ function Menu({history}) {
                          <Link className="nav-link pl-5" style={isActive(history,'/about')} to="/about">About</Link>
                     </li>
 
+                    <li className="nav-item ">
+                         <Link className="nav-link pl-5" style={isActive(history,'/products')} to="/products">Products</Link>
+                    </li>
+
                     {!isSigned() && 
                          <li className="nav-item">
                               <Link className="nav-link pl-5" style={isActive(history,'/signin')} to="/signin">Sign in</Link>
@@ -42,6 +52,13 @@ function Menu({history}) {
                               <Link className="nav-link pl-5" style={isActive(history,'/register')} to="/register">Register</Link>
                          </li>
                     } 
+
+                    {    isSigned() && isSeller() && <React.Fragment>
+                              <li className="nav-item">
+                                   <Link className="nav-link pl-5" style={isActive(history,'/myProducts')} to="/myProducts">My  Products</Link>
+                              </li>
+                         </React.Fragment>
+                    }
 
                    { isSigned() && 
                          <React.Fragment>
@@ -57,6 +74,9 @@ function Menu({history}) {
                              
                          </React.Fragment>
                     }
+
+                  
+
                 </ul>
            </div>
 
