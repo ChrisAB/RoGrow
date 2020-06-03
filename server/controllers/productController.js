@@ -7,6 +7,7 @@ const Product = require('../models/productModel');
 
 exports.getAllProducts = catchAsync(async (req, res, next) => {
   console.log(req.query);
+  console.log(req.params);
   if (req.query !== {}) return next();
 
   const options = {
