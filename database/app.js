@@ -8,17 +8,12 @@ const productRoutes = require("./api/routes/products");
 const userRoutes = require("./api/routes/users");
 const cartRoutes = require("./api/routes/carts");
 
-mongoose.connect(
-  "mongodb+srv://" +
-    process.env.DATABASE_NAME +
-    ":" +
-    process.env.DATABASE_PASSWORD +
-    "@" +
-    process.env.DATABASE_SERVER +
-    "/" +
-    process.env.DATABASE_NAME,
-  { useNewUrlParser: true, useUnifiedTopology: true }
-);
+mongoose
+  .connect(
+    `mongodb+srv://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_SERVER}/${process.env.DATABASE_NAME}`,
+    { useNewUrlParser: true, useUnifiedTopology: true }
+  )
+  .catch((err) => console.log(err));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
