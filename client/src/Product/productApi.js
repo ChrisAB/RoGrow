@@ -19,4 +19,16 @@ export const createProduct = async (token, product) => {
       });
   };
 
-  
+  export const getUserProducts =  async (token, user) => {
+    return await fetch(`${API}/v1/product?sellerID=${user}`,{
+        method: "GET",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        }
+    }) .then(response => {
+        return response.json();
+    })
+    .catch(err => console.log(err));
+};
