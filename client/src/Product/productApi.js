@@ -62,7 +62,7 @@ export const deletePoduct =  (productId, token) => {
 };
 
 export const updateProduct =  (productId, token, product) => {
-  return  fetch(`${API}/v1/user/${productId}`,{
+  return  fetch(`${API}/v1/product/${productId}`,{
       method: "PATCH",
       headers: {
           Accept: "application/json",

@@ -24,6 +24,7 @@ function ProductPage() {
       loadProducts()
     }, [])
 
+
     return (
         <section className="position-relative pt-12 pt-md-14 mt-n11">
             

@@ -5,9 +5,9 @@ import {Link} from 'react-router-dom'
 function Signup() {
     return (
        
-            <div className="solo-wrapper  blue-shape-bg pb-auto">
+            <div className="solo-wrapper  blue-shape-bg pb-0 pb-sm-3  pb-lg-3">
                 <section className="position-relative pt-12 pt-md-14  mt-n11">
-                    <div className="container">
+                    <div className="container p-2 p-sm-1">
                       <div className="row align-items-center text-center text-md-left">
                         <div className="card p-3 m-4 col-md">
                             <div className="text-center mb-3 mt-3 mt-sm-8">

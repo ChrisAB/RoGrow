@@ -262,6 +262,7 @@ const EditProduct = ({match}) => {
         <div>
             {showError()}
             {CreateProductForm()}
+            {rediderectUser(success)}
         </div>
     )
   };
