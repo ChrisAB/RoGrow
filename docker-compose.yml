@@ -6,8 +6,6 @@ services:
       dockerfile: ./DOCKERFILE
     ports:
       - 25030:25030
-    volumes:
-      - ./server:/usr/src/app
     networks:
       - default
   rogrow-frontend:
@@ -16,8 +14,6 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - 3000:3000
-    volumes:
-      - ./client:/usr/src/app
     networks:
       - default
   rogrow-db:
@@ -26,8 +22,6 @@ services:
       dockerfile: ./DOCKERFILE
     ports:
       - 25031:25031
-    volumes:
-      - ./database:/usr/src/app
     networks:
       - default
 
