@@ -49,12 +49,6 @@ app.use(hpp());
 // Serving static files
 app.use(express.static(`${__dirname}/public`));
 
-app.use((req, res, next) => {
-  console.log(req.url);
-  console.log(req.body);
-  next();
-});
-
 // ROUTES
 app.use('/api/v1/user/login', authController.loginUser);
 app.use('/api/v1/user/', userRoutes);

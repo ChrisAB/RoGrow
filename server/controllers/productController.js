@@ -6,8 +6,6 @@ const AppError = require('../utils/appError');
 const Product = require('../models/productModel');
 
 exports.getAllProducts = catchAsync(async (req, res, next) => {
-  console.log(req.query);
-  console.log(req.params);
   if (req.query !== {}) return next();
 
   const options = {
@@ -24,6 +22,11 @@ exports.getAllProducts = catchAsync(async (req, res, next) => {
 });
 
 exports.searchProduct = catchAsync(async (req, res, next) => {
+  const keys = Object.entries(req.query);
+  keys.forEach((key) => {
+    if (key[1] === 'undefined' || key[1] === '') req.query[key[0]] = undefined;
+  });
+
   const options = {
     uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/product`,
     qs: req.query,
@@ -32,7 +35,6 @@ exports.searchProduct = catchAsync(async (req, res, next) => {
   const products = await rp(options);
   if (products.data === null)
     return next(new AppError('No such products exist', 404));
-  console.log(products.data);
   res.status(200).json({ status: 'success', data: products.data });
 });
 
@@ -106,6 +108,7 @@ exports.createProduct = catchAsync(async (req, res, next) => {
 
 exports.updateProduct = catchAsync(async (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1];
+  console.log(req.headers.authorization);
   const verifyUser = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
   let options = {
@@ -115,7 +118,8 @@ exports.updateProduct = catchAsync(async (req, res, next) => {
   };
   const product = await rp(options);
   if (product.data === null) return next(new AppError('No such product', 404));
-
+  console.log(product.data);
+  console.log(verifyUser);
   if (verifyUser.id !== product.data.sellerID)
     return next(new AppError('Invalid access', 405));
 
