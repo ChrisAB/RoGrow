@@ -6,7 +6,8 @@ const AppError = require('../utils/appError');
 const Product = require('../models/productModel');
 
 exports.getAllProducts = catchAsync(async (req, res, next) => {
-  if (req.query.length > 0) return next();
+  console.log(req.query);
+  if (req.query !== {}) return next();
 
   const options = {
     uri: `http://${process.env.DATABASE_ADDRESS}:${process.env.DATABASE_PORT}/product`,
@@ -30,6 +31,7 @@ exports.searchProduct = catchAsync(async (req, res, next) => {
   const products = await rp(options);
   if (products.data === null)
     return next(new AppError('No such products exist', 404));
+  console.log(products.data);
   res.status(200).json({ status: 'success', data: products.data });
 });
 

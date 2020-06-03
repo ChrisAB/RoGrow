@@ -33,7 +33,7 @@ router.put("/", (req, res, next) => {
 });
 
 router.get("/", (req, res, next) => {
-  if (req.query.length > 0) return next();
+  if (req.query != {}) return next();
 
   Product.find()
     .exec()
@@ -43,6 +43,18 @@ router.get("/", (req, res, next) => {
     .catch((err) => {
       console.log(err);
       res.status(500).json({ status: "error", error: err });
+    });
+});
+
+router.get("/", (req, res, next) => {
+  Product.find(req.query)
+    .exec()
+    .then((result) => {
+      res.status(200).json({ status: "success", data: result });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ status: "error", data: err });
     });
 });
 
@@ -57,18 +69,6 @@ router.get("/:productId", (req, res, next) => {
     .catch((err) => {
       console.log(err);
       res.status(500).json({ stauts: "error", error: err });
-    });
-});
-
-router.get("/", (req, res, next) => {
-  Product.find(req.query)
-    .exec()
-    .then((result) => {
-      res.status(200).json({ status: "success", data: result });
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ status: "error", data: err });
     });
 });
 
