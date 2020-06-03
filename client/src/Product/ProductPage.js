@@ -9,7 +9,7 @@ function ProductPage() {
 
     const [products, setProducts] = useState([]);
     const [productsBySearch, setProductsBySearch] = useState([]);
-
+    const [expandedSearch, setExpandedSearch] = useState(false)
     const [error, setError] = useState(false);
     const {token} = isSigned();
 
@@ -48,10 +48,12 @@ function ProductPage() {
 
   const handleChanege = (name) => (event) => {
     setValues({ ...values, errorVal: false, [name]: event.target.value });
+    setExpandedSearch(false);
   };
 
   const clickSearch = async(e) => {
     e.preventDefault();
+    setExpandedSearch(true);
     const data = await getSearchProducts(token,{
       name: name,
       price: price,
@@ -59,11 +61,20 @@ function ProductPage() {
       pickupLocation: pickupLocation,
       origin:origin,
     })
+    if (data){
           if (data.status !== "success") {
             setError(data.message);
           } else {
             setProducts(data.data);
-    }
+        }
+      }
+  }
+  
+  const expandedValue = () =>{
+    if (expandedSearch)
+    return "collapse"
+    else  return "toggle"
+
   }
 
     const searchForm = () => {
@@ -72,7 +83,7 @@ function ProductPage() {
                       <a className="btn btn-lg btn-block blue-bg white-link" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                                 Search
                       </a>
-                      <div class="collapse card p-4" id="collapseExample">
+                      <div className={`card p-4 ${expandedValue()}`} id="collapseExample">
                           <div  >
                               <label className="font-weight-bold text-gray-800 pr-1 pl-sm-1 pt-1"> Name: </label>
                               <input
@@ -126,7 +137,7 @@ function ProductPage() {
                           </div>
                           <div className="pt-4 pb-2 mt-sm-1  mt-xs-1">
                               <button
-                              onClick={clickSearch}
+                                onClick={clickSearch}
                                 className="btn btn-lg btn-block sign-bg"                                
                               >
                                 Apply search
