@@ -15,5 +15,5 @@ RUN npm install --dotenv-extended
 # Bundle app source
 COPY . .
 
-EXPOSE 25030
-CMD [ "npm", "run", "start:dev" ]
+EXPOSE 25031
+CMD [ "npm", "run", "start:prod" ]

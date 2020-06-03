@@ -17,7 +17,7 @@ const categories = require('./utils/categories');
 
 const app = express();
 const corsOptions = {
-  origin: 'http://18.196.100.201:3000',
+  origin: `http://${process.env.RUNNINT_AT_IP}:3000`,
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 

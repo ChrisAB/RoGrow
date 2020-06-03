@@ -3,31 +3,25 @@ services:
   backend:
     build:
       context: ./server
-      dockerfile: ./DOCKERFILE
+      dockerfile: ./DOCKERFILE.production
     ports:
       - 25030:25030
-    volumes:
-      - ./server:/usr/src/app
     networks:
       - default
   frontend:
     build:
       context: ./client
-      dockerfile: ./Dockerfile
+      dockerfile: ./DOCKERFILE.production
     ports:
-      - 3000:3000
-    volumes:
-      - ./client:/usr/src/app
+      - 3000:5000
     networks:
       - default
   db:
     build:
       context: ./database
-      dockerfile: ./DOCKERFILE
+      dockerfile: ./DOCKERFILE.production
     ports:
       - 25031:25031
-    volumes:
-      - ./database:/usr/src/app
     networks:
       - default
 

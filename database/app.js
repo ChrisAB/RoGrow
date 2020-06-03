@@ -13,7 +13,10 @@ mongoose.connect(
     process.env.DATABASE_NAME +
     ":" +
     process.env.DATABASE_PASSWORD +
-    "@cluster-shop-zdn9f.mongodb.net/test?retryWrites=true&w=majority",
+    "@" +
+    process.env.DATABASE_SERVER +
+    "/" +
+    process.env.DATABASE_NAME,
   { useNewUrlParser: true, useUnifiedTopology: true }
 );
 
