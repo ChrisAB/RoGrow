@@ -11,12 +11,15 @@ COPY package*.json ./
  
 # Installs all node packages
 RUN npm install
- 
+
 # Copies everything over to Docker environment
 COPY . .
+
+RUN [ "npm", "run","build" ]
+RUN ["npm", "install", "-g"," server"]
  
 # Uses port which is used by the actual application
 EXPOSE 3000
  
 # Finally runs the application
-CMD [ "npm", "start" ]
+CMD ["serve", "-s", "build"]
