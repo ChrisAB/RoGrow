@@ -15,6 +15,7 @@ import EditProfile from './UserPages/EditProfile'
 import SelelrRoute from './auth/SellerRoute'
 import MyProducts from './Product/MyProducts'
 import CreateProduct from './Product/CreateProduct'
+import ProductPage from './Product/ProductPage'
 
 const Routes = () => {
     return (
@@ -24,6 +25,7 @@ const Routes = () => {
                 <Route path="/about" exact component={Home} />
                 <Route path="/" exact component={MainPage} />
                 <Route path="/signin" exact component={Signin} />
+                <Route path="/products" exact component={ProductPage} />
                 <PublicRoute path="/register" exact component={Signup} />
                 <PublicRoute path="/buyerRegister" exact component={BuyerRegister} />
                 <PublicRoute path="/sellerRegister" exact component={SellerRegister} />
