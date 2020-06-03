@@ -15,11 +15,13 @@ function ProductPage() {
 
     const loadProducts = async() =>{
         const data = await getAllProducts(token)
+        if (data){
           if (data.status !== "success") {
             setError(data.message);
           } else {
               setProducts(data.data);
             }
+          }
       }
       
     useEffect(() => {
