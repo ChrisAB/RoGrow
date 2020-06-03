@@ -13,10 +13,13 @@ function MyProducts() {
 
   const loadProducts = async() =>{
     const data = await getUserProducts(token, _id)
+    //console.log(data);
       if (data.status !== "success") {
         setError(data.message);
-      } else {
-          setProducts(data.data.products);
+      } else {       
+          setProducts(data.data);
+          //console.log(products)
+          
         }
   }
   
@@ -44,7 +47,8 @@ function MyProducts() {
               {products.map((product, i) => (
                   <SellerProductCard 
                     key={i} 
-                    product={product}/>
+                    product={product}
+                    />
               ))}
           </div>
         </div>

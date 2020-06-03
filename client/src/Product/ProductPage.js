@@ -16,7 +16,7 @@ function ProductPage() {
           if (data.status !== "success") {
             setError(data.message);
           } else {
-              setProducts(data.data.products);
+              setProducts(data.data);
             }
       }
       

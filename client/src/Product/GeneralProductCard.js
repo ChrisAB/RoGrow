@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const GeneralProductCard = ({product}) => {
+  
     return (
         <div className="col-4 mb-3">
             <div className="card m-1 mb-4">

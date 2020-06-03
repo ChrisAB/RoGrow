@@ -46,3 +46,17 @@ export const getAllProducts =  async ( token) => {
   })
   .catch(err => console.log(err));
 };
+
+export const deletePoduct =  (productId, token) => {
+  return  fetch(`${API}/v1/product/${productId}`,{
+      method: "DELETE",
+      headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+      }
+  }) .then(response => {
+      return response.json();
+  })
+  .catch(err => console.log(err));
+};
