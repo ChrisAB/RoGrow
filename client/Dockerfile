@@ -16,7 +16,7 @@ RUN npm install
 COPY . .
 
 RUN [ "npm", "run","build" ]
-RUN ["npm", "install", "-g"," serve"]
+RUN [ "npm", "install", "-g","serve"]
 
 # Uses port which is used by the actual application
 EXPOSE 3000
